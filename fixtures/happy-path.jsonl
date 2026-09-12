@@ -1,0 +1,2 @@
+{"id":"ingest","method":"tools.invoke","request":{"tool_id":"tool-dev-servicesell-finbridge","method":"ingest_scenario","args":{"brand":"servicesell"}},"response":{"ok":true}}
+{"id":"workup","method":"tools.invoke","request":{"tool_id":"tool-dev-servicesell-finbridge","method":"generate_workup","args":{"brand":"finbridge"}},"response":{"ok":true}}

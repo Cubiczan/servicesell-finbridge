@@ -1,0 +1,15 @@
+{
+  "slug": "servicesell-finbridge",
+  "name": "ServiceSell × FinBridge",
+  "version": "0.1.0",
+  "tagline": "One Cubiczan console. Two brand skins. Propose, challenge, lock.",
+  "description": "B2B agentification console for Cubiczan dual brands. ServiceSell prepares field-service operators (~$1M+ EBITDA) to meet institutional buyers. FinBridge helps SMB owners step beyond the bookkeeper into a governed proforma and valuation band. Same tools, same CHP human-lock spine, different theme and copy. Mention #servicesell or #finbridge.",
+  "category": "finance",
+  "pricing_model": "free",
+  "homepage_url": "https://www.cubiczan.com",
+  "aliases": ["servicesell", "finbridge"],
+  "bundled_executas": {
+    "cubiczan-chp": { "path": "./executas/servicesell-finbridge" },
+    "chp-workflow": { "path": "./executas/chp-workflow" }
+  }
+}

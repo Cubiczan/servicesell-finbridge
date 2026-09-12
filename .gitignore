@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.anna/
+.anna-app/
+.python-version
+__pycache__/
+*.pyc
+.venv/
+.uv/
+*.log
+.DS_Store
+.vite/
+coverage/
+agent-tools/

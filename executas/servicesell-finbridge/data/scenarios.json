@@ -1,0 +1,82 @@
+{
+  "servicesell": {
+    "id": "composite-hvac-field",
+    "brand": "servicesell",
+    "label": "Illustrative composite — regional HVAC & controls",
+    "disclaimer": "Not a customer. Composite figures exist only to demonstrate the console.",
+    "vertical": "HVAC / commercial maintenance",
+    "geography": "Sun Belt metro (illustrative)",
+    "ttmRevenue": 8400000,
+    "reportedEbitda": 1225000,
+    "grossMargin": 0.41,
+    "addBacks": [
+      {
+        "id": "owner-comp",
+        "label": "Owner compensation above market W-2",
+        "amount": 180000,
+        "recurring": true
+      },
+      {
+        "id": "truck",
+        "label": "One-time fleet write-off",
+        "amount": 45000,
+        "recurring": false
+      }
+    ],
+    "recurringPct": 0.38,
+    "topCustomerPct": 0.19,
+    "ownerFieldHoursWeekly": 22,
+    "technicianCount": 22,
+    "fleetCount": 18,
+    "workingCapital": 620000,
+    "netDebt": 410000,
+    "ownerDependence": "high",
+    "safetyIncidents12m": 2,
+    "bonded": true,
+    "licensedStates": 3,
+    "dataRoomReadyPct": 0.45,
+    "growthRate": 0.07,
+    "growthAsk": 0,
+    "useOfProceeds": "Not a raise — sale-readiness workup"
+  },
+  "finbridge": {
+    "id": "composite-fab-shop",
+    "brand": "finbridge",
+    "label": "Illustrative composite — specialty fabrication shop",
+    "disclaimer": "Not a customer. Composite figures exist only to demonstrate the console.",
+    "vertical": "Custom metal fabrication",
+    "geography": "Upper Midwest industrial park (illustrative)",
+    "ttmRevenue": 4100000,
+    "reportedEbitda": 530000,
+    "grossMargin": 0.34,
+    "addBacks": [
+      {
+        "id": "owner-draw",
+        "label": "Owner draw above market manager salary",
+        "amount": 90000,
+        "recurring": true
+      },
+      {
+        "id": "relo",
+        "label": "One-time shop relocation",
+        "amount": 28000,
+        "recurring": false
+      }
+    ],
+    "recurringPct": 0.12,
+    "topCustomerPct": 0.24,
+    "ownerFieldHoursWeekly": 18,
+    "technicianCount": 14,
+    "fleetCount": 6,
+    "workingCapital": 410000,
+    "netDebt": 280000,
+    "ownerDependence": "medium",
+    "safetyIncidents12m": 1,
+    "bonded": false,
+    "licensedStates": 1,
+    "dataRoomReadyPct": 0.32,
+    "growthRate": 0.11,
+    "growthAsk": 750000,
+    "useOfProceeds": "CNC capacity, hiring two programmers, working-capital buffer"
+  }
+}

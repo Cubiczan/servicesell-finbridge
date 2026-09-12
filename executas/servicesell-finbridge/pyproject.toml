@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tool-dev-servicesell-finbridge"
+version = "0.1.0"
+description = "Cubiczan CHP Executa for the ServiceSell × FinBridge Anna App"
+requires-python = ">=3.10"
+
+[project.scripts]
+"tool-dev-servicesell-finbridge" = "servicesell_finbridge_plugin:main"
+
+[tool.setuptools]
+py-modules = ["servicesell_finbridge_plugin", "engine"]

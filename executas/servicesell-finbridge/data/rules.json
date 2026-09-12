@@ -1,0 +1,121 @@
+{
+  "valuation": {
+    "servicesell": {
+      "ebitdaMultipleLow": 4.5,
+      "ebitdaMultipleHigh": 7.0,
+      "recurringPremium": 0.8
+    },
+    "finbridge": {
+      "ebitdaMultipleLow": 3.5,
+      "ebitdaMultipleHigh": 6.0,
+      "recurringPremium": 0.6
+    }
+  },
+  "proformaYears": 3,
+  "readinessWeights": {
+    "recurring": 20,
+    "concentration": 18,
+    "owner": 16,
+    "dataRoom": 14,
+    "workingCapital": 12,
+    "safety": 10,
+    "addBacks": 10
+  },
+  "challenges": [
+    {
+      "id": "concentration",
+      "claim": "top_customer_pct",
+      "severity": "high",
+      "when": { "field": "topCustomerPct", "op": ">", "value": 0.15 },
+      "text": "Top-account concentration is above 15%. Institutional buyers typically haircut revenue or demand an earnout."
+    },
+    {
+      "id": "owner-key-person",
+      "claim": "owner_field_hours",
+      "severity": "high",
+      "when": { "field": "ownerFieldHoursWeekly", "op": ">=", "value": 15 },
+      "text": "Owner still carries a field book. Buyers will price a transition plan, not a lifestyle business."
+    },
+    {
+      "id": "addback-load",
+      "claim": "add_backs_total",
+      "severity": "medium",
+      "when": { "field": "addBackShareOfEbitda", "op": ">", "value": 0.15 },
+      "text": "Add-backs exceed 15% of reported EBITDA. Quality-of-earnings will test every line."
+    },
+    {
+      "id": "thin-recurring",
+      "claim": "recurring_pct",
+      "severity": "medium",
+      "when": { "field": "recurringPct", "op": "<", "value": 0.25 },
+      "brands": ["servicesell"],
+      "text": "Recurring maintenance is under 25% of revenue. Field-service multiples compress without contract coverage."
+    },
+    {
+      "id": "project-mix",
+      "claim": "recurring_pct",
+      "severity": "medium",
+      "when": { "field": "recurringPct", "op": "<", "value": 0.2 },
+      "brands": ["finbridge"],
+      "text": "Little contracted revenue. A fundraising model that assumes smooth growth needs a backlog or repeat-order story."
+    },
+    {
+      "id": "aggressive-growth",
+      "claim": "growth_rate",
+      "severity": "medium",
+      "when": { "field": "growthRate", "op": ">", "value": 0.1 },
+      "text": "Growth above 10% is an assumption, not a fact. Lock it only if backlog or signed pipeline supports the slope."
+    },
+    {
+      "id": "wc-heavy",
+      "claim": "wc_pct",
+      "severity": "medium",
+      "when": { "field": "wcPct", "op": ">", "value": 0.12 },
+      "text": "Working capital is heavy versus revenue. A buyer peg or a raise will trap cash at close."
+    },
+    {
+      "id": "wc-thin",
+      "claim": "wc_pct",
+      "severity": "low",
+      "when": { "field": "wcPct", "op": "<", "value": 0.05 },
+      "text": "Working capital looks thin. Confirm it is not understated seasonal float."
+    },
+    {
+      "id": "safety",
+      "claim": "safety_incidents",
+      "severity": "medium",
+      "when": { "field": "safetyIncidents12m", "op": ">=", "value": 2 },
+      "brands": ["servicesell"],
+      "text": "Two or more recordable incidents in twelve months. Safety files belong in the data room before a process starts."
+    },
+    {
+      "id": "data-room",
+      "claim": "data_room_ready",
+      "severity": "high",
+      "when": { "field": "dataRoomReadyPct", "op": "<", "value": 0.6 },
+      "text": "Data-room readiness is below 60%. Do not take meetings until the evidence pack is assembled."
+    }
+  ],
+  "checklist": {
+    "servicesell": [
+      { "id": "qoe", "title": "Quality of earnings package", "claim": "adj_ebitda" },
+      { "id": "cohort", "title": "Customer cohort & concentration", "claim": "top_customer_pct" },
+      { "id": "contracts", "title": "Maintenance contracts / recurring book", "claim": "recurring_pct" },
+      { "id": "owner", "title": "Owner role & key-person plan", "claim": "owner_field_hours" },
+      { "id": "fleet", "title": "Fleet, dispatch, and field systems", "claim": "fleet_count" },
+      { "id": "license", "title": "Licensing, bonding, safety", "claim": "safety_incidents" },
+      { "id": "wc", "title": "Working-capital peg", "claim": "wc_pct" },
+      { "id": "dataroom", "title": "Data-room completeness", "claim": "data_room_ready" }
+    ],
+    "finbridge": [
+      { "id": "qoe", "title": "Normalized earnings bridge", "claim": "adj_ebitda" },
+      { "id": "proforma", "title": "Three-year proforma", "claim": "y3_ebitda" },
+      { "id": "valuation", "title": "Valuation band (not a price)", "claim": "ev_mid" },
+      { "id": "concentration", "title": "Customer / SKU concentration", "claim": "top_customer_pct" },
+      { "id": "proceeds", "title": "Use of proceeds & dilution math", "claim": "growth_ask" },
+      { "id": "wc", "title": "Working-capital need", "claim": "wc_pct" },
+      { "id": "owner", "title": "Owner dependence after a raise or sale", "claim": "owner_field_hours" },
+      { "id": "dataroom", "title": "Investor evidence pack", "claim": "data_room_ready" }
+    ]
+  }
+}

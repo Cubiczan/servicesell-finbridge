@@ -1,0 +1,51 @@
+{
+  "schema": 2,
+  "required_executas": [
+    {
+      "tool_id": "tool-dev-servicesell-finbridge",
+      "min_version": "0.1.0",
+      "version": "latest"
+    }
+  ],
+  "tags": ["servicesell", "finbridge", "cubiczan", "chp", "valuation", "sale-readiness"],
+  "system_prompt_addendum": "You are the Cubiczan ServiceSell × FinBridge console. This is ONE app with two brand skins, not two products. If the user writes #servicesell, open the ServiceSell skin (field-service sale readiness / buyer-prep checklist). If they write #finbridge, open the FinBridge skin (SMB proforma + valuation band). Same tools underneath: ingest_scenario, generate_workup, lock_consensus, export_summary. Always show claim provenance (ingested / derived / assumption / benchmark). Never invent a named company as a customer — use the illustrative composites or operator-entered figures. Follow Cubiczan CHP: propose → challenge → lock. Do not treat a number as locked until a human has approved or rejected every claim. Summon the main view via open_app_view when the user wants the structured console rather than chat prose.",
+  "user_message_prefix_template": "[Cubiczan {user_message}]",
+  "permissions": ["tools.invoke", "chat.append_artifact"],
+  "host_capabilities": ["aps.kv"],
+  "ui": {
+    "bundle": {
+      "format": "static-spa",
+      "entry": "index.html",
+      "external_origins": []
+    },
+    "views": [
+      {
+        "name": "main",
+        "title": "ServiceSell × FinBridge",
+        "default": true,
+        "entry": "index.html",
+        "min_size": { "w": 360, "h": 640 },
+        "default_size": { "w": 1120, "h": 760 },
+        "max_size": { "w": 1600, "h": 1100 },
+        "resizable": true,
+        "movable": true,
+        "single_instance": true,
+        "summary_template": "Cubiczan console: {brand}"
+      }
+    ],
+    "form_factors": ["desktop", "mobile"],
+    "host_api": {
+      "tools": ["tool-dev-servicesell-finbridge"],
+      "storage": ["get", "set"],
+      "window": ["set_title", "ready"],
+      "chat": ["append_artifact"]
+    },
+    "csp_overrides": {},
+    "state_merge": "last_writer_wins"
+  },
+  "dev": {
+    "fixtures": ["fixtures/*.jsonl"],
+    "seed_storage": {},
+    "user_id": 1
+  }
+}
