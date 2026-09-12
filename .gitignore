@@ -12,3 +12,4 @@ __pycache__/
 .vite/
 coverage/
 agent-tools/
+docs/media/_work/

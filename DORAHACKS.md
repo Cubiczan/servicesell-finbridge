@@ -6,6 +6,8 @@ Paste this into the BUIDL submission at https://dorahacks.io/hackathon/2349/buid
 
 ServiceSell × FinBridge — Cubiczan dual-brand Anna App
 
+Anna App id: **276** (`servicesell-finbridge`)
+
 ## One-liner
 
 One Anna App, two Cubiczan brand skins: field-service sale readiness and SMB proforma/valuation, sharing a propose → challenge → lock console.

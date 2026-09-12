@@ -10,8 +10,11 @@ This is a B2B agentification console — not a chatbot with a theme toggle.
 Shared spine: **propose → challenge → lock**, Cubiczan CHP-inspired consensus with a human on the lock. Every number carries claim provenance.
 
 App name / slug: `servicesell-finbridge`  
+**Anna App id: 276**  
 Aliases: `#servicesell` · `#finbridge`  
 License: [MIT](LICENSE)
+
+**YouTube URL (Sam fills this):** `_https://www.youtube.com/watch?v=YOUR_VIDEO_ID_`
 
 ## DoraHacks #2349 — paste-ready BUIDL
 
@@ -72,6 +75,57 @@ npm run dev
 ```
 
 Open `#servicesell` or `#finbridge` after the app loads, or use the brand gate.
+
+## Screenshot gallery
+
+Captured from the running local demo (Chrome, 1440×920 and 390×844).
+
+| Skin | Shot | File |
+| --- | --- | --- |
+| Both | Brand gate | [docs/media/01-brand-gate.png](docs/media/01-brand-gate.png) |
+| ServiceSell | Ingest HVAC composite | [docs/media/02-servicesell-ingest.png](docs/media/02-servicesell-ingest.png) |
+| ServiceSell | Buyer-prep workup | [docs/media/03-servicesell-workup.png](docs/media/03-servicesell-workup.png) |
+| ServiceSell | Challenge board | [docs/media/04-servicesell-challenge.png](docs/media/04-servicesell-challenge.png) |
+| ServiceSell | Human lock | [docs/media/05-servicesell-review.png](docs/media/05-servicesell-review.png) |
+| ServiceSell | Export | [docs/media/06-servicesell-export.png](docs/media/06-servicesell-export.png) |
+| FinBridge | Ingest fabrication composite | [docs/media/07-finbridge-ingest.png](docs/media/07-finbridge-ingest.png) |
+| FinBridge | Proforma + valuation | [docs/media/08-finbridge-proforma.png](docs/media/08-finbridge-proforma.png) |
+| FinBridge | Challenge board | [docs/media/09-finbridge-challenge.png](docs/media/09-finbridge-challenge.png) |
+| ServiceSell | Mobile | [docs/media/10-mobile-servicesell.png](docs/media/10-mobile-servicesell.png) |
+| FinBridge | Mobile | [docs/media/11-mobile-finbridge.png](docs/media/11-mobile-finbridge.png) |
+
+![Brand gate](docs/media/01-brand-gate.png)
+
+![ServiceSell workup](docs/media/03-servicesell-workup.png)
+
+![FinBridge proforma](docs/media/08-finbridge-proforma.png)
+
+## YouTube thumbnail
+
+1280×720, H.264-ready still:
+
+**[docs/media/thumbnail.png](docs/media/thumbnail.png)**
+
+![Thumbnail](docs/media/thumbnail.png)
+
+Regenerate: `bash scripts/make-media.sh`
+
+## Demo video (MP4)
+
+~180 seconds, H.264, yuv420p, 1280×720, no audio (caption bars on each beat). Composed with **FFmpeg** from the live screenshots plus title/end cards.
+
+**[docs/media/demo.mp4](docs/media/demo.mp4)** (about 1.2 MB — small enough for git; no LFS required)
+
+Copies also live under `artifacts/demo.mp4` and `artifacts/thumbnail.png`.
+
+```bash
+# recapture screens from a running preview, then rebuild the video
+npm run preview          # keep this up
+NODE_PATH=/path/to/puppeteer-core/node_modules node scripts/capture-screens.mjs
+bash scripts/make-media.sh
+```
+
+**YouTube URL (placeholder for Sam):** `_https://www.youtube.com/watch?v=YOUR_VIDEO_ID_`
 
 ## Anna CLI
 

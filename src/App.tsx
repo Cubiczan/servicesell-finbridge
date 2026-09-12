@@ -255,10 +255,10 @@ export function App() {
           <span>{theme ? `${theme.name} × ${theme.house}` : "ServiceSell × FinBridge"}</span>
         </div>
         <div className="switcher">
-          <button type="button" data-active={brand === "servicesell"} onClick={() => chooseBrand("servicesell")}>
+          <button type="button" data-testid="switch-servicesell" data-active={brand === "servicesell"} onClick={() => chooseBrand("servicesell")}>
             #servicesell
           </button>
-          <button type="button" data-active={brand === "finbridge"} onClick={() => chooseBrand("finbridge")}>
+          <button type="button" data-testid="switch-finbridge" data-active={brand === "finbridge"} onClick={() => chooseBrand("finbridge")}>
             #finbridge
           </button>
           <div className="host-pill">{host ? (host.kind === "anna" ? "Anna host" : "Standalone preview") : "Connecting…"}</div>
@@ -310,7 +310,7 @@ export function App() {
                     <p>{item.audience}</p>
                   </div>
                   <div className="actions">
-                    <button className="primary" type="button" onClick={() => chooseBrand(item.id)}>
+                    <button className="primary" type="button" data-testid={`enter-${item.id}`} onClick={() => chooseBrand(item.id)}>
                       Enter {item.alias}
                     </button>
                   </div>
@@ -336,7 +336,7 @@ export function App() {
               </div>
               <ScenarioForm scenario={scenario} onChange={setScenario} />
               <div className="actions" style={{ marginTop: 16 }}>
-                <button className="primary" type="button" disabled={busy || !scenario.ttmRevenue} onClick={() => void runGenerate()}>
+                <button className="primary" type="button" data-testid="generate-workup" disabled={busy || !scenario.ttmRevenue} onClick={() => void runGenerate()}>
                   {busy ? "Generating…" : `Generate ${theme.outputLabel.toLowerCase()}`}
                 </button>
               </div>
@@ -381,10 +381,10 @@ export function App() {
                 </div>
               </div>
               <div className="actions">
-                <button className="ghost" type="button" onClick={() => setPhase(phase === "workup" ? "challenge" : "workup")}>
+                <button className="ghost" type="button" data-testid="toggle-challenge" onClick={() => setPhase(phase === "workup" ? "challenge" : "workup")}>
                   {phase === "workup" ? "Open challenge board" : "Back to proposed pack"}
                 </button>
-                <button className="primary" type="button" onClick={() => setPhase("review")}>
+                <button className="primary" type="button" data-testid="goto-review" onClick={() => setPhase("review")}>
                   Continue to human lock
                 </button>
               </div>
@@ -473,14 +473,14 @@ export function App() {
               ))}
             </div>
             <div className="actions" style={{ marginTop: 16 }}>
-              <button className="ghost" type="button" onClick={() => {
+              <button className="ghost" type="button" data-testid="approve-all" onClick={() => {
                 const next: Record<string, Review> = {};
                 for (const item of workup.claims) next[item.id] = { claimId: item.id, decision: "approved", note: "Batch approved for demo" };
                 setReviews(next);
               }}>
                 Approve all (demo)
               </button>
-              <button className="primary" type="button" disabled={busy} onClick={() => void runLock()}>
+              <button className="primary" type="button" data-testid="lock-consensus" disabled={busy} onClick={() => void runLock()}>
                 {busy ? "Locking…" : "Lock consensus"}
               </button>
             </div>
