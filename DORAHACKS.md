@@ -1,53 +1,58 @@
-# DoraHacks #2349 — Anna AI App Builder Program
+# DoraHacks #2349 — paste this into the BUIDL
 
-Paste this into the BUIDL submission at https://dorahacks.io/hackathon/2349/buidl
+**Hackathon:** https://dorahacks.io/hackathon/2349/buidl  
+**BUIDL name:** ServiceSell × FinBridge  
+**Anna App id:** 276 · **slug:** `servicesell-finbridge`
 
-## BUIDL name
+## Paste-ready paragraph
 
-ServiceSell × FinBridge — Cubiczan dual-brand Anna App
-
-Anna App id: **276** (`servicesell-finbridge`)
+ServiceSell × FinBridge is one Cubiczan Anna App with two brand skins — not two products. **Problem:** field-service owners (~$1M+ EBITDA) and SMB operators still sit in bookkeeper spreadsheets when they need a buyer-ready or fundraising-ready pack. **Who:** ServiceSell = field-services companies preparing to meet institutional buyers; FinBridge = SMB owners stepping beyond the bookkeeper for a proforma and valuation band. **How AI / agents work:** a deterministic workup engine (and, on Anna, the bundled Executa) proposes claims with provenance; a rule pack challenges weak numbers (concentration, add-backs, owner hours, thin recurring, unfinished data room); a human must approve or reject every claim before lock and export — Cubiczan CHP, not a chatbot transcript. **Anna integration:** App id 276, schema-2 UI bundle, Python Executa (`ingest_scenario`, `generate_workup`, `lock_consensus`, `export_summary`), `#servicesell` / `#finbridge` aliases, SKILL.md. **Run:** `npm i && npm run preview` (http://127.0.0.1:43173). **Media:** demo `docs/media/demo.mp4` (~180s), thumbnail `docs/media/thumbnail.png` (1280×720), screenshot gallery under `docs/media/*.png`. **YouTube:** _https://www.youtube.com/watch?v=YOUR_VIDEO_ID_ **Repos:** https://github.com/Cubiczan/servicesell-finbridge · https://github.com/icohangar-ops/servicesell-finbridge
 
 ## One-liner
 
-One Anna App, two Cubiczan brand skins: field-service sale readiness and SMB proforma/valuation, sharing a propose → challenge → lock console.
+One Anna App, two Cubiczan skins: field-service sale readiness and SMB proforma/valuation on a propose → challenge → lock console.
 
-## Description
+## Problem / who / how
 
-ServiceSell × FinBridge is a B2B agentification console for Cubiczan. It is **one product with two skins**, not two apps.
+| | |
+| --- | --- |
+| **Problem** | Sale and fundraising work still lives in bookkeeper files. Numbers have no provenance, no challenge, and no human lock. |
+| **Who** | ServiceSell: field-services operators preparing for institutional buyers. FinBridge: SMB owners who have outgrown cash-basis bookkeeping. |
+| **How AI** | Agent + rule pack propose and challenge claims. A person locks. Export is refused while anything is pending. |
+| **Anna** | App **276** / `servicesell-finbridge` — UI bundle, Executa tools, SKILL.md, `#servicesell` / `#finbridge`. |
 
-**ServiceSell** helps field-services companies (around $1M+ EBITDA) get ready to meet institutional buyers: quality of earnings, customer concentration, owner dependence, fleet and safety files, and a data-room checklist.
+## Dual brand (one app)
 
-**FinBridge** helps SMB owners step beyond the bookkeeper: a normalized earnings bridge, a three-year proforma, and a valuation band that never pretends to be a price.
+- **ServiceSell** — buyer-prep checklist (QoE, concentration, owner dependence, fleet/safety, data room).
+- **FinBridge** — three-year proforma + valuation band (not a price).
+- Same tools, same claim ids, same CHP lock. Theme and copy change. Not two repos of product.
 
-Both skins sit on the same Cubiczan CHP-inspired spine:
+## How to run
 
-1. **Propose** — the agent (or the deterministic workup engine) emits claims.
-2. **Challenge** — a rule pack flags weak claims (concentration, aggressive add-backs, thin recurring, unfinished data room).
-3. **Lock** — a human approves or rejects every claim. Export is refused until the pack is locked.
+```bash
+npm i && npm run preview
+# http://127.0.0.1:43173  then #servicesell or #finbridge
+npx anna-app validate --strict    # optional, no Anna PAT required
+npx anna-app dev --port 43180     # official harness if uv is installed
+```
 
-Every number carries **claim provenance**: ingested, derived (with formula), assumption, or benchmark. The UI is a structured console — not a chat transcript with extra CSS.
+## Judge media
 
-### Anna App shape
+| Asset | Path |
+| --- | --- |
+| ~180s FFmpeg demo | [docs/media/demo.mp4](docs/media/demo.mp4) |
+| 1280×720 thumbnail | [docs/media/thumbnail.png](docs/media/thumbnail.png) |
+| Screenshot gallery | [docs/media/](docs/media/) (`01`–`11` + mobile) |
+| Artifact copies | [artifacts/](artifacts/) |
 
-- `app.json` / `manifest.json` (schema 2 UI bundle)
-- Static SPA bundle (React + TypeScript, Vite)
-- Bundled Python Executa (`ingest_scenario`, `generate_workup`, `lock_consensus`, `export_summary`)
-- `SKILL.md` recipe for `#servicesell` / `#finbridge`
-- Runs offline without Anna cloud credentials; `anna-app validate` and `npm test` are the local bar
+**YouTube URL (Sam fills this):** `_https://www.youtube.com/watch?v=YOUR_VIDEO_ID_`
 
-### What judges should click
+## Links
 
-1. Open the preview and pick **ServiceSell**.
-2. Load the illustrative HVAC composite (labeled as not a customer).
-3. Generate the buyer-prep checklist and open the challenge board.
-4. Approve/reject claims, lock consensus, export markdown.
-5. Switch to **#finbridge** and repeat for the proforma + valuation band.
+- https://github.com/Cubiczan/servicesell-finbridge
+- https://github.com/icohangar-ops/servicesell-finbridge
+- https://anna.partners/developers
+- https://www.cubiczan.com
+- https://dorahacks.io/hackathon/2349/buidl
 
-### Links
-
-- Developer docs followed: https://anna.partners/developers and https://anna.partners/llms.txt
-- Hackathon: https://dorahacks.io/hackathon/2349
-- House site: https://www.cubiczan.com
-
-No secrets. No invented customer logos. MIT licensed.
+MIT. Illustrative composites only — no invented customers.
