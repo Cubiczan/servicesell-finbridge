@@ -16,7 +16,7 @@ Not two products. `#servicesell` and `#finbridge` are skins on one CHP spine: **
 | **License** | [MIT](LICENSE) |
 | **Hackathon** | [DoraHacks #2349](https://dorahacks.io/hackathon/2349/buidl) |
 
-**YouTube URL (Sam fills this):** `_https://www.youtube.com/watch?v=YOUR_VIDEO_ID_`
+**YouTube URL (Sam fills this):** `https://youtu.be/qWRtj5F-i5E`
 
 ## Repos
 
@@ -61,7 +61,7 @@ No Anna cloud credentials are required for the demo. `anna-app login --host http
 | **YouTube thumbnail 1280×720** | [docs/media/thumbnail.png](docs/media/thumbnail.png) |
 | Artifact copies | [artifacts/demo.mp4](artifacts/demo.mp4), [artifacts/thumbnail.png](artifacts/thumbnail.png) |
 
-**YouTube URL (placeholder):** `_https://www.youtube.com/watch?v=YOUR_VIDEO_ID_`
+**YouTube URL (placeholder):** `https://youtu.be/qWRtj5F-i5E`
 
 ### Screenshot gallery
 
@@ -91,7 +91,7 @@ No Anna cloud credentials are required for the demo. `anna-app login --host http
 
 Full paste block: [DORAHACKS.md](DORAHACKS.md).
 
-> ServiceSell × FinBridge is one Cubiczan Anna App with two brand skins — not two products. **Problem:** field-service owners (~$1M+ EBITDA) and SMB operators still sit in bookkeeper spreadsheets when they need a buyer-ready or fundraising-ready pack. **Who:** ServiceSell = field-services companies preparing to meet institutional buyers; FinBridge = SMB owners stepping beyond the bookkeeper for a proforma and valuation band. **How AI / agents work:** a deterministic workup engine (and, on Anna, the bundled Executa) proposes claims with provenance; a rule pack challenges weak numbers; a human must approve or reject every claim before lock and export. **Anna integration:** App id 276, slug `servicesell-finbridge`, schema-2 UI bundle, Python Executa, `#servicesell` / `#finbridge`, SKILL.md. **Run:** `npm i && npm run preview`. **Media:** `docs/media/demo.mp4`, `docs/media/thumbnail.png`, `docs/media/*.png`. **YouTube:** _https://www.youtube.com/watch?v=YOUR_VIDEO_ID_ **Repos:** https://github.com/Cubiczan/servicesell-finbridge · https://github.com/icohangar-ops/servicesell-finbridge
+> ServiceSell × FinBridge is one Cubiczan Anna App with two brand skins — not two products. **Problem:** field-service owners (~$1M+ EBITDA) and SMB operators still sit in bookkeeper spreadsheets when they need a buyer-ready or fundraising-ready pack. **Who:** ServiceSell = field-services companies preparing to meet institutional buyers; FinBridge = SMB owners stepping beyond the bookkeeper for a proforma and valuation band. **How AI / agents work:** a deterministic workup engine (and, on Anna, the bundled Executa) proposes claims with provenance; a rule pack challenges weak numbers; a human must approve or reject every claim before lock and export. **Anna integration:** App id 276, slug `servicesell-finbridge`, schema-2 UI bundle, Python Executa, `#servicesell` / `#finbridge`, SKILL.md. **Run:** `npm i && npm run preview`. **Media:** `docs/media/demo.mp4`, `docs/media/thumbnail.png`, `docs/media/*.png`. **YouTube:** https://youtu.be/qWRtj5F-i5E **Repos:** https://github.com/Cubiczan/servicesell-finbridge · https://github.com/icohangar-ops/servicesell-finbridge
 
 ## Brand positioning
 

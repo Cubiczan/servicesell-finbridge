@@ -6,7 +6,7 @@
 
 ## Paste-ready paragraph
 
-ServiceSell × FinBridge is one Cubiczan Anna App with two brand skins — not two products. **Problem:** field-service owners (~$1M+ EBITDA) and SMB operators still sit in bookkeeper spreadsheets when they need a buyer-ready or fundraising-ready pack. **Who:** ServiceSell = field-services companies preparing to meet institutional buyers; FinBridge = SMB owners stepping beyond the bookkeeper for a proforma and valuation band. **How AI / agents work:** a deterministic workup engine (and, on Anna, the bundled Executa) proposes claims with provenance; a rule pack challenges weak numbers (concentration, add-backs, owner hours, thin recurring, unfinished data room); a human must approve or reject every claim before lock and export — Cubiczan CHP, not a chatbot transcript. **Anna integration:** App id 276, schema-2 UI bundle, Python Executa (`ingest_scenario`, `generate_workup`, `lock_consensus`, `export_summary`), `#servicesell` / `#finbridge` aliases, SKILL.md. **Run:** `npm i && npm run preview` (http://127.0.0.1:43173). **Media:** demo `docs/media/demo.mp4` (~180s), thumbnail `docs/media/thumbnail.png` (1280×720), screenshot gallery under `docs/media/*.png`. **YouTube:** _https://www.youtube.com/watch?v=YOUR_VIDEO_ID_ **Repos:** https://github.com/Cubiczan/servicesell-finbridge · https://github.com/icohangar-ops/servicesell-finbridge
+ServiceSell × FinBridge is one Cubiczan Anna App with two brand skins — not two products. **Problem:** field-service owners (~$1M+ EBITDA) and SMB operators still sit in bookkeeper spreadsheets when they need a buyer-ready or fundraising-ready pack. **Who:** ServiceSell = field-services companies preparing to meet institutional buyers; FinBridge = SMB owners stepping beyond the bookkeeper for a proforma and valuation band. **How AI / agents work:** a deterministic workup engine (and, on Anna, the bundled Executa) proposes claims with provenance; a rule pack challenges weak numbers (concentration, add-backs, owner hours, thin recurring, unfinished data room); a human must approve or reject every claim before lock and export — Cubiczan CHP, not a chatbot transcript. **Anna integration:** App id 276, schema-2 UI bundle, Python Executa (`ingest_scenario`, `generate_workup`, `lock_consensus`, `export_summary`), `#servicesell` / `#finbridge` aliases, SKILL.md. **Run:** `npm i && npm run preview` (http://127.0.0.1:43173). **Media:** demo `docs/media/demo.mp4` (~180s), thumbnail `docs/media/thumbnail.png` (1280×720), screenshot gallery under `docs/media/*.png`. **YouTube:** https://youtu.be/qWRtj5F-i5E **Repos:** https://github.com/Cubiczan/servicesell-finbridge · https://github.com/icohangar-ops/servicesell-finbridge
 
 ## One-liner
 
@@ -45,7 +45,7 @@ npx anna-app dev --port 43180     # official harness if uv is installed
 | Screenshot gallery | [docs/media/](docs/media/) (`01`–`11` + mobile) |
 | Artifact copies | [artifacts/](artifacts/) |
 
-**YouTube URL (Sam fills this):** `_https://www.youtube.com/watch?v=YOUR_VIDEO_ID_`
+**YouTube URL (Sam fills this):** `https://youtu.be/qWRtj5F-i5E`
 
 ## Links
 
