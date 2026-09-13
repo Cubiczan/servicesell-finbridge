@@ -17,7 +17,7 @@ MANIFEST = {
     "name": "tool-dev-servicesell-finbridge",
     "display_name": "Cubiczan CHP Workup",
     "version": "0.1.0",
-    "description": "Shared ServiceSell + FinBridge tools: ingest, workup, CHP lock, export.",
+    "description": "Shared Cubiczan tools: ingest a field or shop book, work up workflow agents, CHP lock, export.",
     "tools": [
         {
             "name": "ping",
@@ -45,7 +45,7 @@ MANIFEST = {
         },
         {
             "name": "generate_workup",
-            "description": "Build a provenance-tagged proforma or buyer-prep workup.",
+            "description": "Build a provenance-tagged workflow-agent workup (field-service or shop-floor finance-ops).",
             "parameters": {
                 "type": "object",
                 "properties": {

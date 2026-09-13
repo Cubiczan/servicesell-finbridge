@@ -16,7 +16,7 @@
     "recurring": 20,
     "concentration": 18,
     "owner": 16,
-    "dataRoom": 14,
+    "afterHours": 14,
     "workingCapital": 12,
     "safety": 10,
     "addBacks": 10
@@ -27,21 +27,21 @@
       "claim": "top_customer_pct",
       "severity": "high",
       "when": { "field": "topCustomerPct", "op": ">", "value": 0.15 },
-      "text": "Top-account concentration is above 15%. Institutional buyers typically haircut revenue or demand an earnout."
+      "text": "Top-account concentration is above 15%. Dispatch and quoting agents will keep filling the same book unless the route is spread."
     },
     {
       "id": "owner-key-person",
       "claim": "owner_field_hours",
       "severity": "high",
       "when": { "field": "ownerFieldHoursWeekly", "op": ">=", "value": 15 },
-      "text": "Owner still carries a field book. Buyers will price a transition plan, not a lifestyle business."
+      "text": "Owner still carries a field book. Agents in dispatch and quoting will not stick if the owner is the only closer."
     },
     {
       "id": "addback-load",
       "claim": "add_backs_total",
       "severity": "medium",
       "when": { "field": "addBackShareOfEbitda", "op": ">", "value": 0.15 },
-      "text": "Add-backs exceed 15% of reported EBITDA. Quality-of-earnings will test every line."
+      "text": "Job-cost leakage exceeds 15% of reported EBITDA. Quote-to-invoice agents need a human lock on every leakage line."
     },
     {
       "id": "thin-recurring",
@@ -49,7 +49,7 @@
       "severity": "medium",
       "when": { "field": "recurringPct", "op": "<", "value": 0.25 },
       "brands": ["servicesell"],
-      "text": "Recurring maintenance is under 25% of revenue. Field-service multiples compress without contract coverage."
+      "text": "Maintenance contracts are under 25% of revenue. After-hours booking agents have less of a booked book to protect."
     },
     {
       "id": "project-mix",
@@ -57,28 +57,28 @@
       "severity": "medium",
       "when": { "field": "recurringPct", "op": "<", "value": 0.2 },
       "brands": ["finbridge"],
-      "text": "Little contracted revenue. A fundraising model that assumes smooth growth needs a backlog or repeat-order story."
+      "text": "Little contracted work. Quoting and job-cost agents need a backlog or repeat-order story — not a smooth raise model."
     },
     {
       "id": "aggressive-growth",
       "claim": "growth_rate",
       "severity": "medium",
       "when": { "field": "growthRate", "op": ">", "value": 0.1 },
-      "text": "Growth above 10% is an assumption, not a fact. Lock it only if backlog or signed pipeline supports the slope."
+      "text": "Growth above 10% is an assumption, not a fact. Lock it only if open quotes or signed backlog support the slope."
     },
     {
       "id": "wc-heavy",
       "claim": "wc_pct",
       "severity": "medium",
       "when": { "field": "wcPct", "op": ">", "value": 0.12 },
-      "text": "Working capital is heavy versus revenue. A buyer peg or a raise will trap cash at close."
+      "text": "Working capital is heavy versus revenue. Cash agents should flag slow collections and job-cost bleed."
     },
     {
       "id": "wc-thin",
       "claim": "wc_pct",
       "severity": "low",
       "when": { "field": "wcPct", "op": "<", "value": 0.05 },
-      "text": "Working capital looks thin. Confirm it is not understated seasonal float."
+      "text": "Working capital looks thin. Confirm it is not understated seasonal float before a cash agent acts on it."
     },
     {
       "id": "safety",
@@ -86,36 +86,36 @@
       "severity": "medium",
       "when": { "field": "safetyIncidents12m", "op": ">=", "value": 2 },
       "brands": ["servicesell"],
-      "text": "Two or more recordable incidents in twelve months. Safety files belong in the data room before a process starts."
+      "text": "Two or more recordable incidents in twelve months. Keep a human in the loop before an agent books or dispatches."
     },
     {
-      "id": "data-room",
+      "id": "after-hours",
       "claim": "data_room_ready",
       "severity": "high",
-      "when": { "field": "dataRoomReadyPct", "op": "<", "value": 0.6 },
-      "text": "Data-room readiness is below 60%. Do not take meetings until the evidence pack is assembled."
+      "when": { "field": "afterHoursCapturePct", "op": "<", "value": 0.6 },
+      "text": "After-hours capture is below 60%. Missed calls are leaking jobs. Put a booking agent on the after-hours line."
     }
   ],
   "checklist": {
     "servicesell": [
-      { "id": "qoe", "title": "Quality of earnings package", "claim": "adj_ebitda" },
-      { "id": "cohort", "title": "Customer cohort & concentration", "claim": "top_customer_pct" },
-      { "id": "contracts", "title": "Maintenance contracts / recurring book", "claim": "recurring_pct" },
-      { "id": "owner", "title": "Owner role & key-person plan", "claim": "owner_field_hours" },
-      { "id": "fleet", "title": "Fleet, dispatch, and field systems", "claim": "fleet_count" },
+      { "id": "jobcost", "title": "Job-cost leakage", "claim": "add_backs_total" },
+      { "id": "quotes", "title": "Open quotes / quoting agent", "claim": "growth_ask" },
+      { "id": "afterhours", "title": "After-hours booking coverage", "claim": "data_room_ready" },
+      { "id": "contracts", "title": "Maintenance book / recurring coverage", "claim": "recurring_pct" },
+      { "id": "owner", "title": "Owner still on the truck", "claim": "owner_field_hours" },
+      { "id": "fleet", "title": "Dispatch, fleet, and field notes → invoice", "claim": "fleet_count" },
       { "id": "license", "title": "Licensing, bonding, safety", "claim": "safety_incidents" },
-      { "id": "wc", "title": "Working-capital peg", "claim": "wc_pct" },
-      { "id": "dataroom", "title": "Data-room completeness", "claim": "data_room_ready" }
+      { "id": "cohort", "title": "Route / account concentration", "claim": "top_customer_pct" }
     ],
     "finbridge": [
-      { "id": "qoe", "title": "Normalized earnings bridge", "claim": "adj_ebitda" },
-      { "id": "proforma", "title": "Three-year proforma", "claim": "y3_ebitda" },
-      { "id": "valuation", "title": "Valuation band (not a price)", "claim": "ev_mid" },
+      { "id": "jobcost", "title": "Job-cost leakage / normalized earnings", "claim": "adj_ebitda" },
+      { "id": "forward", "title": "Forward operating view", "claim": "y3_ebitda" },
+      { "id": "quotes", "title": "Open quotes in the book", "claim": "growth_ask" },
       { "id": "concentration", "title": "Customer / SKU concentration", "claim": "top_customer_pct" },
-      { "id": "proceeds", "title": "Use of proceeds & dilution math", "claim": "growth_ask" },
-      { "id": "wc", "title": "Working-capital need", "claim": "wc_pct" },
-      { "id": "owner", "title": "Owner dependence after a raise or sale", "claim": "owner_field_hours" },
-      { "id": "dataroom", "title": "Investor evidence pack", "claim": "data_room_ready" }
+      { "id": "cash", "title": "Cash / working-capital need", "claim": "wc_pct" },
+      { "id": "afterhours", "title": "After-hours ops coverage", "claim": "data_room_ready" },
+      { "id": "owner", "title": "Owner dependence in the shop", "claim": "owner_field_hours" },
+      { "id": "contracts", "title": "Contract / repeat-order mix", "claim": "recurring_pct" }
     ]
   }
 }

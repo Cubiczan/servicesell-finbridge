@@ -4,5 +4,5 @@ profile: core
 tools:
   - cursor
 notes: >
-  Greenfield Cubiczan Anna App. Specs cover only the dual-brand console
-  capability shipped in this repo, not Cubiczan's whole practice.
+  Cubiczan dual-brand console. Specs cover the workflow-agent capability
+  shipped in this repo, not Cubiczan's whole practice.

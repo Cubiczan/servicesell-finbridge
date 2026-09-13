@@ -2,7 +2,7 @@
   "servicesell": {
     "id": "composite-hvac-field",
     "brand": "servicesell",
-    "label": "Illustrative composite — regional HVAC & controls",
+    "label": "Illustrative composite — regional HVAC (dispatch + after-hours)",
     "disclaimer": "Not a customer. Composite figures exist only to demonstrate the console.",
     "vertical": "HVAC / commercial maintenance",
     "geography": "Sun Belt metro (illustrative)",
@@ -12,13 +12,13 @@
     "addBacks": [
       {
         "id": "owner-comp",
-        "label": "Owner compensation above market W-2",
+        "label": "Owner time still on the truck (unbilled)",
         "amount": 180000,
         "recurring": true
       },
       {
         "id": "truck",
-        "label": "One-time fleet write-off",
+        "label": "One-time fleet write-off / job-cost miss",
         "amount": 45000,
         "recurring": false
       }
@@ -34,15 +34,15 @@
     "safetyIncidents12m": 2,
     "bonded": true,
     "licensedStates": 3,
-    "dataRoomReadyPct": 0.45,
+    "afterHoursCapturePct": 0.45,
     "growthRate": 0.07,
-    "growthAsk": 0,
-    "useOfProceeds": "Not a raise — sale-readiness workup"
+    "openQuotes": 410000,
+    "workflowNotes": "Agents on dispatch, after-hours booking, quoting, job-cost, field notes → invoice"
   },
   "finbridge": {
     "id": "composite-fab-shop",
     "brand": "finbridge",
-    "label": "Illustrative composite — specialty fabrication shop",
+    "label": "Illustrative composite — specialty fabrication shop (quoting + job-cost)",
     "disclaimer": "Not a customer. Composite figures exist only to demonstrate the console.",
     "vertical": "Custom metal fabrication",
     "geography": "Upper Midwest industrial park (illustrative)",
@@ -52,13 +52,13 @@
     "addBacks": [
       {
         "id": "owner-draw",
-        "label": "Owner draw above market manager salary",
+        "label": "Owner still closing jobs instead of a quoting agent",
         "amount": 90000,
         "recurring": true
       },
       {
         "id": "relo",
-        "label": "One-time shop relocation",
+        "label": "Unbilled rework / job-cost miss",
         "amount": 28000,
         "recurring": false
       }
@@ -74,9 +74,9 @@
     "safetyIncidents12m": 1,
     "bonded": false,
     "licensedStates": 1,
-    "dataRoomReadyPct": 0.32,
+    "afterHoursCapturePct": 0.32,
     "growthRate": 0.11,
-    "growthAsk": 750000,
-    "useOfProceeds": "CNC capacity, hiring two programmers, working-capital buffer"
+    "openQuotes": 750000,
+    "workflowNotes": "Agents on quoting, job-cost, cash, after-hours ops beyond the bookkeeper"
   }
 }

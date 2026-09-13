@@ -22,7 +22,7 @@ const STEPS: Array<{ id: Phase; label: string; hint: string }> = [
   { id: "workup", label: "Propose", hint: "Numbers + provenance" },
   { id: "challenge", label: "Challenge", hint: "CHP dissent" },
   { id: "review", label: "Lock", hint: "Human approve" },
-  { id: "export", label: "Export", hint: "Evidence pack" },
+  { id: "export", label: "Export", hint: "Locked pack" },
 ];
 
 function Chip({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -103,20 +103,20 @@ function ScenarioForm({
       {field("ttmRevenue", "TTM revenue ($)")}
       {field("reportedEbitda", "Reported EBITDA ($)")}
       {field("grossMargin", "Gross margin (0–1)", "0.01")}
-      {field("recurringPct", "Recurring mix (0–1)", "0.01")}
-      {field("topCustomerPct", "Top customer (0–1)", "0.01")}
+      {field("recurringPct", "Contract / maintenance mix (0–1)", "0.01")}
+      {field("topCustomerPct", "Top account (0–1)", "0.01")}
       {field("ownerFieldHoursWeekly", "Owner field hours / week")}
       {field("technicianCount", "Technicians / operators")}
-      {field("fleetCount", "Fleet count")}
+      {field("fleetCount", "Fleet / bays")}
       {field("workingCapital", "Working capital ($)")}
       {field("netDebt", "Net debt ($)")}
-      {field("dataRoomReadyPct", "Data-room ready (0–1)", "0.01")}
+      {field("afterHoursCapturePct", "After-hours capture (0–1)", "0.01")}
       {field("growthRate", "Forward growth assumption (0–1)", "0.01")}
-      {field("growthAsk", "Capital ask ($)")}
+      {field("openQuotes", "Open quotes ($)")}
       {field("safetyIncidents12m", "Recordable incidents (12m)")}
       <label>
-        Use of proceeds
-        <input value={scenario.useOfProceeds} onChange={(event) => set({ useOfProceeds: event.target.value })} />
+        Workflow notes
+        <input value={scenario.workflowNotes} onChange={(event) => set({ workflowNotes: event.target.value })} />
       </label>
     </div>
   );
@@ -293,11 +293,12 @@ export function App() {
         {phase === "brand" || !brand || !theme ? (
           <section>
             <div className="hero">
-              <div className="eyebrow">One app · two brand skins</div>
-              <h1>Propose the number. Challenge it. Lock it with a human.</h1>
+              <div className="eyebrow">One product · two skins · cubiczan.com</div>
+              <h1>Implement AI agents in the live blue-collar workflow.</h1>
               <p className="lede">
-                Cubiczan ships ServiceSell and FinBridge as one Anna App — same CHP spine, same tools, different copy and
-                theme. Not two products. Not a chatbot with a coat of paint.
+                Cubiczan ships production governed agentic AI (CHP). ServiceSell and FinBridge are two skins on the same
+                ability — field-service and shop-floor — not two products, not a sale-readiness pack, and not a chatbot
+                with a coat of paint. Impact Quadrant forward-deploys.
               </p>
             </div>
             <div className="gate">
@@ -357,22 +358,22 @@ export function App() {
           <section>
             <div className="hero">
               <div className="eyebrow">{theme?.outputLabel}</div>
-              <h1>{phase === "workup" ? "Proposed pack" : "Challenge board"}</h1>
+              <h1>{phase === "workup" ? "Proposed workflow pack" : "Challenge board"}</h1>
               <p className="lede">
                 Every figure carries a source. Derived lines show the formula. Assumptions stay yellow until a human locks
-                them.
+                them. Production agents, not a demo pitch.
               </p>
               <div className="metrics">
                 <div className="metric">
-                  <span>Adjusted EBITDA</span>
+                  <span>Adjusted job EBITDA</span>
                   <b>{formatUsd(workup.metrics.adjEbitda)}</b>
                 </div>
                 <div className="metric">
-                  <span>EV mid</span>
-                  <b>{formatUsd(workup.valuation.evMid)}</b>
+                  <span>After-hours capture</span>
+                  <b>{formatPct(workup.scenario.afterHoursCapturePct)}</b>
                 </div>
                 <div className="metric">
-                  <span>Readiness</span>
+                  <span>Workflow score</span>
                   <b>{workup.readiness.score.toFixed(1)}</b>
                 </div>
                 <div className="metric">
@@ -392,7 +393,7 @@ export function App() {
 
             {phase === "workup" && brand === "finbridge" ? (
               <div className="card" style={{ marginTop: 16 }}>
-                <h2>Three-year proforma</h2>
+                <h2>Forward operating view</h2>
                 <div className="table-wrap">
                   <table>
                     <thead>
@@ -422,7 +423,7 @@ export function App() {
 
             {phase === "workup" && brand === "servicesell" ? (
               <div className="card" style={{ marginTop: 16 }}>
-                <h2>Buyer-prep checklist</h2>
+                <h2>Workflow agent checklist</h2>
                 <div className="check-list">
                   {workup.checklist.map((item) => (
                     <article key={item.id} className="check">
@@ -447,7 +448,7 @@ export function App() {
                 ))}
               </div>
               {phase === "challenge" && workup.claims.every((item) => !item.challenges.length) ? (
-                <p className="empty">No automatic challenges fired. A human still has to lock the pack.</p>
+                <p className="empty">No automatic challenges fired. A human still has to lock the workflow pack.</p>
               ) : null}
             </div>
           </section>
@@ -507,15 +508,15 @@ export function App() {
                 </div>
               </>
             ) : (
-              <p className="empty">Lock the pack first. Export only includes approved or locked claims.</p>
+              <p className="empty">Lock the workflow pack first. Export only includes approved or locked claims.</p>
             )}
           </section>
         ) : null}
       </main>
 
       <p className="footer-note">
-        Cubiczan console · illustrative composites only · MIT · DoraHacks #2349 Anna AI App Builder Program. Not a
-        valuation opinion, offer, or customer case study.
+        Cubiczan console · illustrative composites only · MIT · cubiczan.com. Production governed agents, not a demo
+        pitch. Not a valuation opinion, offer, or customer case study.
       </p>
     </div>
   );

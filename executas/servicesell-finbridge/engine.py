@@ -46,10 +46,10 @@ def empty_scenario(brand: str) -> dict[str, Any]:
         "safetyIncidents12m": 0,
         "bonded": False,
         "licensedStates": 1,
-        "dataRoomReadyPct": 0,
+        "afterHoursCapturePct": 0,
         "growthRate": 0.06,
-        "growthAsk": 0,
-        "useOfProceeds": "",
+        "openQuotes": 0,
+        "workflowNotes": "",
     }
 
 
@@ -194,7 +194,7 @@ def readiness_score(brand: str, scenario: dict[str, Any], m: dict[str, float]) -
     conc = max(0.0, 1 - max(0.0, _num(scenario.get("topCustomerPct")) - 0.1) / 0.25) * weights["concentration"]
     owner_hours = _num(scenario.get("ownerFieldHoursWeekly"))
     owner = max(0.0, 1 - owner_hours / 30) * weights["owner"]
-    data_room = _num(scenario.get("dataRoomReadyPct")) * weights["dataRoom"]
+    after_hours = _num(scenario.get("afterHoursCapturePct")) * weights["afterHours"]
     wc = max(0.0, 1 - abs(m["wcPct"] - 0.08) / 0.12) * weights["workingCapital"]
     safety = max(0.0, 1 - _num(scenario.get("safetyIncidents12m")) / 4) * weights["safety"]
     addbacks = max(0.0, 1 - m["addBackShareOfEbitda"] / 0.35) * weights["addBacks"]
@@ -202,7 +202,7 @@ def readiness_score(brand: str, scenario: dict[str, Any], m: dict[str, float]) -
         "recurring": recurring,
         "concentration": conc,
         "owner": owner,
-        "dataRoom": data_room,
+        "afterHours": after_hours,
         "workingCapital": wc,
         "safety": safety,
         "addBacks": addbacks,
@@ -222,7 +222,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         _claim("reported_ebitda", "Reported EBITDA", scenario["reportedEbitda"], source="ingested", inputs=["reportedEbitda"]),
         _claim(
             "add_backs_total",
-            "Add-backs (all)",
+            "Job-cost leakage (all)",
             m["addBacksTotal"],
             source="derived",
             formula="sum(addBacks.amount)",
@@ -248,7 +248,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "recurring_pct",
-            "Recurring revenue mix",
+            "Contract / maintenance mix",
             scenario["recurringPct"],
             unit="pct",
             source="ingested",
@@ -258,7 +258,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "top_customer_pct",
-            "Top customer share",
+            "Top-account concentration",
             scenario["topCustomerPct"],
             unit="pct",
             source="ingested",
@@ -296,11 +296,11 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "data_room_ready",
-            "Data-room readiness",
-            scenario["dataRoomReadyPct"],
+            "After-hours capture",
+            scenario["afterHoursCapturePct"],
             unit="pct",
             source="ingested",
-            inputs=["dataRoomReadyPct"],
+            inputs=["afterHoursCapturePct"],
             format="pct",
             confidence="low",
         ),
@@ -325,15 +325,15 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "growth_ask",
-            "Capital ask",
-            scenario["growthAsk"],
+            "Open quotes",
+            scenario["openQuotes"],
             source="ingested",
-            inputs=["growthAsk"],
+            inputs=["openQuotes"],
             confidence="medium",
         ),
         _claim(
             "multiple_low",
-            "EBITDA multiple (low)",
+            "Job-margin multiple (low)",
             band["multipleLow"],
             unit="x",
             source="benchmark",
@@ -344,7 +344,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "multiple_high",
-            "EBITDA multiple (high)",
+            "Job-margin multiple (high)",
             band["multipleHigh"],
             unit="x",
             source="benchmark",
@@ -355,7 +355,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "ev_low",
-            "Enterprise value (low)",
+            "Book value at stake (low)",
             band["evLow"],
             source="derived",
             formula="adjEbitda * multipleLow",
@@ -364,7 +364,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "ev_high",
-            "Enterprise value (high)",
+            "Book value at stake (high)",
             band["evHigh"],
             source="derived",
             formula="adjEbitda * multipleHigh",
@@ -373,7 +373,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "ev_mid",
-            "Enterprise value (mid)",
+            "Book value at stake (mid)",
             band["evMid"],
             source="derived",
             formula="(evLow + evHigh) / 2",
@@ -382,7 +382,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "equity_mid",
-            "Equity value (mid, net of debt)",
+            "Equity after debt (mid)",
             (band["equityLow"] + band["equityHigh"]) / 2,
             source="derived",
             formula="((evLow + evHigh) / 2) - netDebt",
@@ -391,7 +391,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "y3_revenue",
-            "Year-3 proforma revenue",
+            "Year-3 operating revenue",
             y3["revenue"],
             source="derived",
             formula="ttmRevenue * (1 + growthRate) ^ 3",
@@ -400,7 +400,7 @@ def build_claims(brand: str, scenario: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _claim(
             "y3_ebitda",
-            "Year-3 proforma EBITDA",
+            "Year-3 operating EBITDA",
             y3["ebitda"],
             source="derived",
             formula="y3 revenue * (adjEbitda/ttmRevenue [+ recurring lift])",
@@ -420,7 +420,7 @@ def apply_challenges(brand: str, scenario: dict[str, Any], claims: list[dict[str
             "recurringPct",
             "growthRate",
             "safetyIncidents12m",
-            "dataRoomReadyPct",
+            "afterHoursCapturePct",
         )},
         "addBackShareOfEbitda": m["addBackShareOfEbitda"],
         "wcPct": m["wcPct"],
@@ -534,7 +534,7 @@ def export_summary(workup: dict[str, Any]) -> dict[str, Any]:
     claims = workup.get("claims") or []
     locked = [c for c in claims if c["status"] in {"locked", "approved"}]
     rejected = [c for c in claims if c["status"] == "rejected"]
-    title = "Buyer-prep summary" if brand == "servicesell" else "Proforma & valuation summary"
+    title = "Field-workflow agent summary" if brand == "servicesell" else "Shop-floor finance-ops summary"
     lines = [
         f"# {title}",
         "",

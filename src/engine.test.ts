@@ -15,7 +15,7 @@ describe("Cubiczan CHP engine", () => {
     expect(workup.disclaimer).toMatch(/Not a customer/i);
   });
 
-  it("builds a FinBridge proforma without renaming the brand tools", () => {
+  it("builds a FinBridge operating view without renaming the brand tools", () => {
     const service = generateWorkup("servicesell", getScenario("servicesell"));
     const finance = generateWorkup("finbridge", getScenario("finbridge"));
     expect(service.claims.map((claim) => claim.id)).toEqual(finance.claims.map((claim) => claim.id));
@@ -37,5 +37,20 @@ describe("Cubiczan CHP engine", () => {
     const pack = exportSummary(locked);
     expect(pack.markdown).toMatch(/Locked \/ approved claims/);
     expect(pack.markdown).not.toMatch(/Nothing locked/);
+    expect(pack.title).toMatch(/finance-ops|workflow/i);
+  });
+
+  it("reads sample books as workflow agents, not a sale or raise pack", () => {
+    const field = generateWorkup("servicesell", getScenario("servicesell"));
+    const shop = generateWorkup("finbridge", getScenario("finbridge"));
+    const challengeText = [...field.claims, ...shop.claims]
+      .flatMap((claim) => claim.challenges.map((item) => item.text))
+      .join(" ");
+    expect(field.scenario.afterHoursCapturePct).toBeGreaterThan(0);
+    expect(shop.scenario.openQuotes).toBeGreaterThan(0);
+    expect(challengeText).toMatch(/after-hours|job-cost|quoting/i);
+    expect(challengeText).not.toMatch(/institutional buyer|data-room|data room|fundraising|earnout/i);
+    expect(field.checklist.some((item) => /after-hours|job-cost|quote/i.test(item.title))).toBe(true);
+    expect(exportSummary(field).title).not.toMatch(/buyer-prep|valuation/i);
   });
 });
