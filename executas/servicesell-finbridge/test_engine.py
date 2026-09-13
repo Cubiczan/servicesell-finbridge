@@ -17,8 +17,12 @@ def main() -> int:
     assert service["claims"], "ServiceSell workup produced no claims"
     assert all(claim.get("source") for claim in service["claims"])
     assert service["scenario"]["disclaimer"].lower().startswith("not a customer")
+    assert 20_000_000 <= service["scenario"]["ttmRevenue"] <= 500_000_000
+    assert 20_000_000 <= finance["scenario"]["ttmRevenue"] <= 500_000_000
     assert [c["id"] for c in service["claims"]] == [c["id"] for c in finance["claims"]]
     assert len(finance["proforma"]) == 3
+    assert any("after-hours" in (c.get("label") or "").lower() for c in service["claims"])
+    assert all("enterprise value" not in (c.get("label") or "").lower() for c in service["claims"])
 
     blocked = lock_consensus(service, [])
     assert blocked["lock"]["locked"] is False

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
-  "description": "Cubiczan dual-brand Anna App: ServiceSell + FinBridge on one CHP spine.",
+  "description": "Cubiczan agentic services for $20M–$500M blue-collar shops: ServiceSell + FinBridge on one CHP spine.",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 43173",
     "build": "tsc --noEmit && vite build",

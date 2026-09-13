@@ -18,11 +18,11 @@ import { TOOL_ID, connectHost, unwrapTool, type Host } from "./host";
 
 const STEPS: Array<{ id: Phase; label: string; hint: string }> = [
   { id: "brand", label: "Brand", hint: "Pick a skin" },
-  { id: "ingest", label: "Ingest", hint: "Load a book" },
-  { id: "workup", label: "Propose", hint: "Numbers + provenance" },
+  { id: "ingest", label: "Ingest", hint: "Load the shop book" },
+  { id: "workup", label: "Propose", hint: "Agent workup + provenance" },
   { id: "challenge", label: "Challenge", hint: "CHP dissent" },
   { id: "review", label: "Lock", hint: "Human approve" },
-  { id: "export", label: "Export", hint: "Evidence pack" },
+  { id: "export", label: "Export", hint: "Production pack" },
 ];
 
 function Chip({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -101,21 +101,23 @@ function ScenarioForm({
         <input value={scenario.geography} onChange={(event) => set({ geography: event.target.value })} />
       </label>
       {field("ttmRevenue", "TTM revenue ($)")}
-      {field("reportedEbitda", "Reported EBITDA ($)")}
-      {field("grossMargin", "Gross margin (0–1)", "0.01")}
-      {field("recurringPct", "Recurring mix (0–1)", "0.01")}
-      {field("topCustomerPct", "Top customer (0–1)", "0.01")}
-      {field("ownerFieldHoursWeekly", "Owner field hours / week")}
+      {field("reportedEbitda", "Reported operating earnings ($)")}
+      {field("grossMargin", "Gross margin / job-cost (0–1)", "0.01")}
+      {field("recurringPct", "Contract / maintenance mix (0–1)", "0.01")}
+      {field("topCustomerPct", "Top account share (0–1)", "0.01")}
+      {field("ownerFieldHoursWeekly", "Owner hours in dispatch / quoting")}
       {field("technicianCount", "Technicians / operators")}
-      {field("fleetCount", "Fleet count")}
+      {field("fleetCount", "Fleet / rolling stock")}
       {field("workingCapital", "Working capital ($)")}
       {field("netDebt", "Net debt ($)")}
-      {field("dataRoomReadyPct", "Data-room ready (0–1)", "0.01")}
-      {field("growthRate", "Forward growth assumption (0–1)", "0.01")}
-      {field("growthAsk", "Capital ask ($)")}
+      {field("dataRoomReadyPct", "After-hours booking coverage (0–1)", "0.01")}
+      {field("quoteCycleDays", "Quote-to-cash cycle (days)")}
+      {field("jobCostVariancePct", "Job-cost variance (0–1)", "0.01")}
+      {field("growthRate", "After-hours capture assumption (0–1)", "0.01")}
+      {field("growthAsk", "Cash trapped in jobs / AR ($)")}
       {field("safetyIncidents12m", "Recordable incidents (12m)")}
       <label>
-        Use of proceeds
+        First agent wedge
         <input value={scenario.useOfProceeds} onChange={(event) => set({ useOfProceeds: event.target.value })} />
       </label>
     </div>
@@ -293,11 +295,12 @@ export function App() {
         {phase === "brand" || !brand || !theme ? (
           <section>
             <div className="hero">
-              <div className="eyebrow">One app · two brand skins</div>
-              <h1>Propose the number. Challenge it. Lock it with a human.</h1>
+              <div className="eyebrow">Cubiczan agentic services · $20M–$500M blue-collar</div>
+              <h1>Diagnose the shop. Deploy agents. A human locks production.</h1>
               <p className="lede">
-                Cubiczan ships ServiceSell and FinBridge as one Anna App — same CHP spine, same tools, different copy and
-                theme. Not two products. Not a chatbot with a coat of paint.
+                Impact Quadrant implements Cubiczan agents in the workflow you already run — dispatch, quoting, job-cost,
+                after-hours, cash — without ripping out the ERP. ServiceSell and FinBridge are go-to-market skins on one
+                CHP spine. Not two products. Not a sale-readiness or valuation console.
               </p>
             </div>
             <div className="gate">
@@ -360,20 +363,20 @@ export function App() {
               <h1>{phase === "workup" ? "Proposed pack" : "Challenge board"}</h1>
               <p className="lede">
                 Every figure carries a source. Derived lines show the formula. Assumptions stay yellow until a human locks
-                them.
+                the agent for production.
               </p>
               <div className="metrics">
                 <div className="metric">
-                  <span>Adjusted EBITDA</span>
-                  <b>{formatUsd(workup.metrics.adjEbitda)}</b>
+                  <span>TTM revenue</span>
+                  <b>{formatUsd(workup.scenario.ttmRevenue)}</b>
                 </div>
                 <div className="metric">
-                  <span>EV mid</span>
-                  <b>{formatUsd(workup.valuation.evMid)}</b>
+                  <span>After-hours coverage</span>
+                  <b>{formatPct(workup.scenario.dataRoomReadyPct)}</b>
                 </div>
                 <div className="metric">
-                  <span>Readiness</span>
-                  <b>{workup.readiness.score.toFixed(1)}</b>
+                  <span>Job-cost variance</span>
+                  <b>{formatPct(workup.scenario.jobCostVariancePct)}</b>
                 </div>
                 <div className="metric">
                   <span>Challenges</span>
@@ -392,15 +395,15 @@ export function App() {
 
             {phase === "workup" && brand === "finbridge" ? (
               <div className="card" style={{ marginTop: 16 }}>
-                <h2>Three-year proforma</h2>
+                <h2>Forward operating picture</h2>
                 <div className="table-wrap">
                   <table>
                     <thead>
                       <tr>
                         <th>Year</th>
                         <th>Revenue</th>
-                        <th>Gross profit</th>
-                        <th>EBITDA</th>
+                        <th>Job-cost (COGS)</th>
+                        <th>Operating earnings</th>
                         <th>Margin</th>
                       </tr>
                     </thead>
@@ -422,7 +425,7 @@ export function App() {
 
             {phase === "workup" && brand === "servicesell" ? (
               <div className="card" style={{ marginTop: 16 }}>
-                <h2>Buyer-prep checklist</h2>
+                <h2>Agent deployment board</h2>
                 <div className="check-list">
                   {workup.checklist.map((item) => (
                     <article key={item.id} className="check">
@@ -514,8 +517,8 @@ export function App() {
       </main>
 
       <p className="footer-note">
-        Cubiczan console · illustrative composites only · MIT · DoraHacks #2349 Anna AI App Builder Program. Not a
-        valuation opinion, offer, or customer case study.
+        Cubiczan × Impact Quadrant · illustrative composites only · MIT. Not a customer case study, valuation opinion, or
+        offer of securities. Listing: DoraHacks #2349.
       </p>
     </div>
   );

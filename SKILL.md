@@ -1,6 +1,6 @@
 ---
 name: servicesell-finbridge
-description: Cubiczan dual-brand Anna App skill. Sale readiness (#servicesell) or proforma/valuation (#finbridge) with propose → challenge → lock.
+description: Cubiczan dual-brand Anna App skill. Agentic services for $20M–$500M blue-collar shops — dispatch/job-cost (#servicesell) or quote-to-cash (#finbridge) with propose → challenge → lock.
 metadata: {"matrix":{"emoji":"🧭","execution_mode":"prompt","category_name":"finance"}}
 ---
 
