@@ -79,10 +79,10 @@ await sleep(300);
 await shot(page, "09-finbridge-challenge.png");
 
 await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 });
-await page.goto(`${URL}#servicesell`, { waitUntil: "networkidle0" });
+await page.goto(`${URL}?brand=servicesell#servicesell`, { waitUntil: "networkidle0" });
 await page.waitForSelector('[data-testid="generate-workup"]');
 await shot(page, "10-mobile-servicesell.png", { y: 420 });
-await page.goto(`${URL}#finbridge`, { waitUntil: "networkidle0" });
+await page.goto(`${URL}?brand=finbridge#finbridge`, { waitUntil: "networkidle0" });
 await page.waitForSelector('[data-testid="generate-workup"]');
 await shot(page, "11-mobile-finbridge.png", { y: 420 });
 

@@ -146,6 +146,7 @@ export function App() {
         if (found) {
           setBrand(found);
           setPhase("ingest");
+          setScenario(getScenario(found));
         }
       })
       .catch((err: Error) => {
