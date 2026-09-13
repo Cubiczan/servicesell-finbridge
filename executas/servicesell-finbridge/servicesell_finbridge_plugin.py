@@ -45,7 +45,7 @@ MANIFEST = {
         },
         {
             "name": "generate_workup",
-            "description": "Build a provenance-tagged proforma or buyer-prep workup.",
+            "description": "Build a provenance-tagged agent workup for the shop workflow.",
             "parameters": {
                 "type": "object",
                 "properties": {

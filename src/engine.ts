@@ -40,6 +40,8 @@ export type Scenario = {
   growthRate: number;
   growthAsk: number;
   useOfProceeds: string;
+  quoteCycleDays: number;
+  jobCostVariancePct: number;
 };
 
 export type Challenge = { id: string; severity: "high" | "medium" | "low"; text: string };
@@ -92,6 +94,7 @@ const SCENARIOS = scenariosJson as Record<BrandId, Scenario>;
 const RULES = rulesJson as {
   valuation: Record<BrandId, { ebitdaMultipleLow: number; ebitdaMultipleHigh: number; recurringPremium: number }>;
   proformaYears: number;
+  nightMix: number;
   readinessWeights: Record<string, number>;
   challenges: Array<{
     id: string;
@@ -133,6 +136,8 @@ export function emptyScenario(brand: BrandId): Scenario {
     growthRate: 0.06,
     growthAsk: 0,
     useOfProceeds: "",
+    quoteCycleDays: 0,
+    jobCostVariancePct: 0,
   };
 }
 
@@ -209,6 +214,10 @@ export function metrics(scenario: Scenario) {
     ebitdaMargin: revenue ? adjEbitda / revenue : 0,
     addBackShareOfEbitda: reported ? addBacksTotal / reported : 0,
     recurringRevenue: revenue * Number(scenario.recurringPct || 0),
+    afterHoursMissed:
+      revenue * Number(RULES.nightMix || 0.18) * (1 - Number(scenario.dataRoomReadyPct || 0)),
+    jobCostVariancePct: Number(scenario.jobCostVariancePct || 0),
+    quoteCycleDays: Number(scenario.quoteCycleDays || 0),
   };
 }
 
@@ -267,54 +276,54 @@ export function readinessScore(brand: BrandId, scenario: Scenario, m: ReturnType
 
 function buildClaims(brand: BrandId, scenario: Scenario): Claim[] {
   const m = metrics(scenario);
-  const band = valuationBand(brand, scenario, m);
   const years = proforma(scenario, m);
   const y3 = years[years.length - 1] ?? { ebitda: 0, revenue: 0 };
+  const production = readinessScore(brand, scenario, m);
 
   return [
     claim("ttm_revenue", "TTM revenue", scenario.ttmRevenue, { source: "ingested", inputs: ["ttmRevenue"] }),
-    claim("reported_ebitda", "Reported EBITDA", scenario.reportedEbitda, {
+    claim("reported_ebitda", "Reported operating earnings", scenario.reportedEbitda, {
       source: "ingested",
       inputs: ["reportedEbitda"],
     }),
-    claim("add_backs_total", "Add-backs (all)", m.addBacksTotal, {
+    claim("add_backs_total", "Job-cost leaks / unposted adjustments", m.addBacksTotal, {
       source: "derived",
       formula: "sum(addBacks.amount)",
       inputs: ["addBacks"],
       confidence: "medium",
     }),
-    claim("adj_ebitda", "Adjusted EBITDA", m.adjEbitda, {
+    claim("adj_ebitda", "Adjusted operating earnings", m.adjEbitda, {
       source: "derived",
       formula: "reportedEbitda + sum(addBacks.amount)",
       inputs: ["reportedEbitda", "addBacks"],
       confidence: "medium",
     }),
-    claim("normalized_ebitda", "Normalized EBITDA (recurring add-backs only)", m.normalizedEbitda, {
+    claim("normalized_ebitda", "Normalized operating earnings (recurring leaks only)", m.normalizedEbitda, {
       source: "derived",
       formula: "reportedEbitda + sum(recurring add-backs)",
       inputs: ["reportedEbitda", "addBacks.recurring"],
     }),
-    claim("recurring_pct", "Recurring revenue mix", scenario.recurringPct, {
+    claim("recurring_pct", "Contract / maintenance mix", scenario.recurringPct, {
       source: "ingested",
       unit: "pct",
       format: "pct",
       inputs: ["recurringPct"],
       confidence: "medium",
     }),
-    claim("top_customer_pct", "Top customer share", scenario.topCustomerPct, {
+    claim("top_customer_pct", "Top account share", scenario.topCustomerPct, {
       source: "ingested",
       unit: "pct",
       format: "pct",
       inputs: ["topCustomerPct"],
       confidence: "medium",
     }),
-    claim("owner_field_hours", "Owner field hours / week", scenario.ownerFieldHoursWeekly, {
+    claim("owner_field_hours", "Owner hours in dispatch / quoting", scenario.ownerFieldHoursWeekly, {
       source: "ingested",
       unit: "hours",
       format: "number",
       inputs: ["ownerFieldHoursWeekly"],
     }),
-    claim("fleet_count", "Fleet count", scenario.fleetCount, {
+    claim("fleet_count", "Fleet / rolling stock", scenario.fleetCount, {
       source: "ingested",
       unit: "count",
       format: "number",
@@ -327,7 +336,7 @@ function buildClaims(brand: BrandId, scenario: Scenario): Claim[] {
       formula: "workingCapital / ttmRevenue",
       inputs: ["workingCapital", "ttmRevenue"],
     }),
-    claim("data_room_ready", "Data-room readiness", scenario.dataRoomReadyPct, {
+    claim("data_room_ready", "After-hours booking coverage", scenario.dataRoomReadyPct, {
       source: "ingested",
       unit: "pct",
       format: "pct",
@@ -340,67 +349,60 @@ function buildClaims(brand: BrandId, scenario: Scenario): Claim[] {
       format: "number",
       inputs: ["safetyIncidents12m"],
     }),
-    claim("growth_rate", "Forward growth assumption", scenario.growthRate, {
+    claim("growth_rate", "After-hours capture assumption", scenario.growthRate, {
       source: "assumption",
       unit: "pct",
       format: "pct",
       inputs: ["growthRate"],
       confidence: "low",
     }),
-    claim("growth_ask", "Capital ask", scenario.growthAsk, {
+    claim("growth_ask", "Cash trapped in jobs / AR", scenario.growthAsk, {
       source: "ingested",
       inputs: ["growthAsk"],
       confidence: "medium",
     }),
-    claim("multiple_low", "EBITDA multiple (low)", band.multipleLow, {
-      source: "benchmark",
-      unit: "x",
-      format: "multiple",
-      formula: "brandLow + recurringPremium * recurringPct",
-      inputs: ["brand", "recurringPct"],
+    claim("quote_cycle_days", "Quote-to-cash cycle (days)", m.quoteCycleDays, {
+      source: "ingested",
+      unit: "days",
+      format: "number",
+      inputs: ["quoteCycleDays"],
       confidence: "medium",
     }),
-    claim("multiple_high", "EBITDA multiple (high)", band.multipleHigh, {
-      source: "benchmark",
-      unit: "x",
-      format: "multiple",
-      formula: "brandHigh + recurringPremium * recurringPct",
-      inputs: ["brand", "recurringPct"],
+    claim("job_cost_variance", "Job-cost variance", m.jobCostVariancePct, {
+      source: "ingested",
+      unit: "pct",
+      format: "pct",
+      inputs: ["jobCostVariancePct"],
       confidence: "medium",
     }),
-    claim("ev_low", "Enterprise value (low)", band.evLow, {
+    claim("after_hours_missed", "After-hours revenue still leaking", m.afterHoursMissed, {
       source: "derived",
-      formula: "adjEbitda * multipleLow",
-      inputs: ["adj_ebitda", "multiple_low"],
+      formula: "ttmRevenue * nightMix * (1 - afterHoursCoverage)",
+      inputs: ["ttmRevenue", "dataRoomReadyPct"],
       confidence: "medium",
     }),
-    claim("ev_high", "Enterprise value (high)", band.evHigh, {
+    claim("contract_book", "Contract / maintenance book", m.recurringRevenue, {
       source: "derived",
-      formula: "adjEbitda * multipleHigh",
-      inputs: ["adj_ebitda", "multiple_high"],
-      confidence: "medium",
+      formula: "ttmRevenue * recurringPct",
+      inputs: ["ttmRevenue", "recurringPct"],
     }),
-    claim("ev_mid", "Enterprise value (mid)", band.evMid, {
+    claim("production_fit", "Production-fit score", production.score, {
       source: "derived",
-      formula: "(evLow + evHigh) / 2",
-      inputs: ["ev_low", "ev_high"],
+      unit: "score",
+      format: "number",
+      formula: "weighted mix of coverage, owner load, job-cost, cash, safety",
+      inputs: ["recurringPct", "ownerFieldHoursWeekly", "dataRoomReadyPct", "wcPct"],
       confidence: "medium",
     }),
-    claim("equity_mid", "Equity value (mid, net of debt)", (band.equityLow + band.equityHigh) / 2, {
-      source: "derived",
-      formula: "((evLow + evHigh) / 2) - netDebt",
-      inputs: ["ev_mid", "netDebt"],
-      confidence: "medium",
-    }),
-    claim("y3_revenue", "Year-3 proforma revenue", y3.revenue, {
+    claim("y3_revenue", "Year-3 operating revenue", y3.revenue, {
       source: "derived",
       formula: "ttmRevenue * (1 + growthRate) ^ 3",
       inputs: ["ttmRevenue", "growthRate"],
       confidence: "low",
     }),
-    claim("y3_ebitda", "Year-3 proforma EBITDA", y3.ebitda, {
+    claim("y3_ebitda", "Year-3 operating earnings", y3.ebitda, {
       source: "derived",
-      formula: "y3 revenue * (adjEbitda/ttmRevenue [+ recurring lift])",
+      formula: "y3 revenue * (adjEbitda/ttmRevenue [+ contract lift])",
       inputs: ["ttmRevenue", "adj_ebitda", "growthRate", "recurringPct"],
       confidence: "low",
     }),
@@ -416,6 +418,8 @@ export function applyChallenges(brand: BrandId, scenario: Scenario, claims: Clai
     growthRate: Number(scenario.growthRate || 0),
     safetyIncidents12m: Number(scenario.safetyIncidents12m || 0),
     dataRoomReadyPct: Number(scenario.dataRoomReadyPct || 0),
+    quoteCycleDays: Number(scenario.quoteCycleDays || 0),
+    jobCostVariancePct: Number(scenario.jobCostVariancePct || 0),
     addBackShareOfEbitda: m.addBackShareOfEbitda,
     wcPct: m.wcPct,
   };
@@ -494,7 +498,7 @@ export function lockConsensus(workup: Workup, reviews: Review[]): Workup {
 
 export function exportSummary(workup: Workup) {
   const brand = workup.brand;
-  const title = brand === "servicesell" ? "Buyer-prep summary" : "Proforma & valuation summary";
+  const title = brand === "servicesell" ? "Agent deployment summary" : "Ops + cash summary";
   const locked = workup.claims.filter((item) => item.status === "locked" || item.status === "approved");
   const rejected = workup.claims.filter((item) => item.status === "rejected");
   const lines = [

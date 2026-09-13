@@ -6,9 +6,15 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 MEDIA="$ROOT/docs/media"
 WORK="$MEDIA/_work"
 ART="$ROOT/artifacts"
-FONT_B="/usr/share/fonts/truetype/macos/Inter-Bold.ttf"
-FONT_R="/usr/share/fonts/truetype/macos/Inter-Regular.ttf"
-FONT_M="/usr/share/fonts/truetype/macos/Inter-Medium.ttf"
+if [ -f /usr/share/fonts/truetype/macos/Inter-Bold.ttf ]; then
+  FONT_B="/usr/share/fonts/truetype/macos/Inter-Bold.ttf"
+  FONT_R="/usr/share/fonts/truetype/macos/Inter-Regular.ttf"
+  FONT_M="/usr/share/fonts/truetype/macos/Inter-Medium.ttf"
+else
+  FONT_B="/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+  FONT_R="/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+  FONT_M="/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+fi
 
 mkdir -p "$WORK" "$ART"
 
@@ -23,7 +29,7 @@ draw() {
 cat > "$WORK/thumb.fc" <<EOF
 [0][1]hstack=inputs=2[base];
 [base]drawbox=x=636:y=0:w=8:h=720:color=0xC9A227@1:t=fill[split];
-[split]drawtext=fontfile=${FONT_B}:text='ServiceSell':fontcolor=0xF4F1EA:fontsize=36:x=80:y=250,drawtext=fontfile=${FONT_R}:text='Field-service sale readiness':fontcolor=0xD97706:fontsize=20:x=80:y=304,drawtext=fontfile=${FONT_B}:text='FinBridge':fontcolor=0xE8EEF8:fontsize=36:x=720:y=250,drawtext=fontfile=${FONT_R}:text='SMB proforma + valuation':fontcolor=0xC9A227:fontsize=20:x=720:y=304,drawtext=fontfile=${FONT_B}:text='ServiceSell  |  FinBridge':fontcolor=white:fontsize=44:x=(w-text_w)/2:y=80,drawtext=fontfile=${FONT_M}:text='Cubiczan B2B Agentification':fontcolor=0xC9A227:fontsize=26:x=(w-text_w)/2:y=140,drawtext=fontfile=${FONT_R}:text='Propose  ->  Challenge  ->  Lock':fontcolor=0xF4F1EA:fontsize=22:x=(w-text_w)/2:y=580,drawtext=fontfile=${FONT_R}:text='Anna App 276   |   DoraHacks 2349':fontcolor=0x9AA8C2:fontsize=16:x=(w-text_w)/2:y=630
+[split]drawtext=fontfile=${FONT_B}:text='ServiceSell':fontcolor=0xF4F1EA:fontsize=36:x=80:y=250,drawtext=fontfile=${FONT_R}:text='Agents in dispatch + job-cost':fontcolor=0xD97706:fontsize=20:x=80:y=304,drawtext=fontfile=${FONT_B}:text='FinBridge':fontcolor=0xE8EEF8:fontsize=36:x=720:y=250,drawtext=fontfile=${FONT_R}:text='Quote-to-cash + cash lock':fontcolor=0xC9A227:fontsize=20:x=720:y=304,drawtext=fontfile=${FONT_B}:text='ServiceSell  |  FinBridge':fontcolor=white:fontsize=44:x=(w-text_w)/2:y=80,drawtext=fontfile=${FONT_M}:text='Cubiczan agentic services':fontcolor=0xC9A227:fontsize=26:x=(w-text_w)/2:y=140,drawtext=fontfile=${FONT_R}:text='Propose  ->  Challenge  ->  Lock':fontcolor=0xF4F1EA:fontsize=22:x=(w-text_w)/2:y=580,drawtext=fontfile=${FONT_R}:text='\$20M-\$500M blue-collar   |   DoraHacks 2349':fontcolor=0x9AA8C2:fontsize=16:x=(w-text_w)/2:y=630
 EOF
 
 ffmpeg -y -hide_banner -loglevel error \
@@ -33,24 +39,24 @@ ffmpeg -y -hide_banner -loglevel error \
   -frames:v 1 "$MEDIA/thumbnail.png"
 
 ffmpeg -y -hide_banner -loglevel error -f lavfi -i "color=c=0x10110F:s=1280x720:d=1" \
-  -vf "drawtext=fontfile=${FONT_B}:text='ServiceSell  |  FinBridge':fontcolor=white:fontsize=52:x=(w-text_w)/2:y=250,drawtext=fontfile=${FONT_M}:text='Cubiczan B2B agentification console':fontcolor=0xC9A227:fontsize=28:x=(w-text_w)/2:y=330,drawtext=fontfile=${FONT_R}:text='One Anna App  |  two brand skins  |  one CHP lock':fontcolor=0xB7B2A6:fontsize=22:x=(w-text_w)/2:y=400" \
+  -vf "drawtext=fontfile=${FONT_B}:text='ServiceSell  |  FinBridge':fontcolor=white:fontsize=52:x=(w-text_w)/2:y=250,drawtext=fontfile=${FONT_M}:text='Cubiczan agentic services for \$20M-\$500M shops':fontcolor=0xC9A227:fontsize=26:x=(w-text_w)/2:y=330,drawtext=fontfile=${FONT_R}:text='One app  |  two skins  |  CHP lock':fontcolor=0xB7B2A6:fontsize=22:x=(w-text_w)/2:y=400" \
   -frames:v 1 "$WORK/card-title.png"
 
 ffmpeg -y -hide_banner -loglevel error -f lavfi -i "color=c=0x0B1220:s=1280x720:d=1" \
-  -vf "drawtext=fontfile=${FONT_B}:text='Lock the number. Then export.':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=250,drawtext=fontfile=${FONT_R}:text='Anna App 276  |  servicesell-finbridge':fontcolor=0xC9A227:fontsize=24:x=(w-text_w)/2:y=330,drawtext=fontfile=${FONT_R}:text='DoraHacks 2349 Anna AI App Builder Program':fontcolor=0x9AA8C2:fontsize=20:x=(w-text_w)/2:y=390,drawtext=fontfile=${FONT_R}:text='Illustrative composites only  |  MIT':fontcolor=0x9AA8C2:fontsize=18:x=(w-text_w)/2:y=460" \
+  -vf "drawtext=fontfile=${FONT_B}:text='Lock agents. Then run production.':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=250,drawtext=fontfile=${FONT_R}:text='Cubiczan x Impact Quadrant':fontcolor=0xC9A227:fontsize=24:x=(w-text_w)/2:y=330,drawtext=fontfile=${FONT_R}:text='Illustrative composites only  |  MIT':fontcolor=0x9AA8C2:fontsize=20:x=(w-text_w)/2:y=390,drawtext=fontfile=${FONT_R}:text='Listing: DoraHacks 2349':fontcolor=0x9AA8C2:fontsize=18:x=(w-text_w)/2:y=460" \
   -frames:v 1 "$WORK/card-end.png"
 
-draw "$MEDIA/01-brand-gate.png" "$WORK/s01.png" "One app. Two skins." "Pick ServiceSell or FinBridge - same tools underneath."
-draw "$MEDIA/02-servicesell-ingest.png" "$WORK/s02.png" "ServiceSell - ingest" "Illustrative HVAC composite. Not a customer."
-draw "$MEDIA/03-servicesell-workup.png" "$WORK/s03.png" "Propose the buyer-prep pack" "Adjusted EBITDA, readiness score, checklist gaps."
-draw "$MEDIA/04-servicesell-challenge.png" "$WORK/s04.png" "Challenge the weak claims" "Concentration, add-backs, owner hours, unfinished data room."
-draw "$MEDIA/05-servicesell-review.png" "$WORK/s05.png" "Human review is the lock" "Approve or reject every claim. Pending blocks export."
-draw "$MEDIA/06-servicesell-export.png" "$WORK/s06.png" "Export the evidence pack" "Markdown + JSON of locked claims only."
-draw "$MEDIA/07-finbridge-ingest.png" "$WORK/s07.png" "Switch to FinBridge" "Same engine. Navy/gold skin. SMB fundraising copy."
-draw "$MEDIA/08-finbridge-proforma.png" "$WORK/s08.png" "Proforma + valuation band" "Three-year P and L and an EV range - not a price."
+draw "$MEDIA/01-brand-gate.png" "$WORK/s01.png" "One offer. Two skins." "Pick ServiceSell or FinBridge - same CHP tools underneath."
+draw "$MEDIA/02-servicesell-ingest.png" "$WORK/s02.png" "ServiceSell - ingest" "Illustrative HVAC composite. Not a customer. \$86M shop."
+draw "$MEDIA/03-servicesell-workup.png" "$WORK/s03.png" "Propose the agent board" "After-hours coverage, job-cost variance, dispatch gaps."
+draw "$MEDIA/04-servicesell-challenge.png" "$WORK/s04.png" "Challenge the weak claims" "Night-board gap, owner still dispatching, job-cost leaks."
+draw "$MEDIA/05-servicesell-review.png" "$WORK/s05.png" "Human review is the lock" "Approve or reject every claim. Pending blocks production."
+draw "$MEDIA/06-servicesell-export.png" "$WORK/s06.png" "Export the production pack" "Markdown + JSON of locked claims only."
+draw "$MEDIA/07-finbridge-ingest.png" "$WORK/s07.png" "Switch to FinBridge" "Same engine. Navy/gold skin. Quote-to-cash copy."
+draw "$MEDIA/08-finbridge-proforma.png" "$WORK/s08.png" "Quote-to-cash + cash" "Forward operating picture - not a valuation band."
 draw "$MEDIA/09-finbridge-challenge.png" "$WORK/s09.png" "Same CHP spine" "FinBridge challenges still require a human lock."
-draw "$MEDIA/10-mobile-servicesell.png" "$WORK/s10.png" "ServiceSell on mobile" "Stacked CHP rail + ingest form."
-draw "$MEDIA/11-mobile-finbridge.png" "$WORK/s11.png" "FinBridge on mobile" "One product. Two skins. Phone-width."
+draw "$MEDIA/10-mobile-servicesell.png" "$WORK/s10.png" "ServiceSell on mobile" "Stacked CHP rail + shop ingest form."
+draw "$MEDIA/11-mobile-finbridge.png" "$WORK/s11.png" "FinBridge on mobile" "One offer. Two skins. Phone-width."
 
 simple_still() {
   local src="$1" dest="$2" secs="$3"

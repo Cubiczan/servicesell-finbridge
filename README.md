@@ -1,20 +1,21 @@
 # ServiceSell × FinBridge
 
-**One Cubiczan Anna App. Two brand skins. Same tools.**
+**Cubiczan agentic services for mid-market blue-collar shops. Two brand skins. Same CHP tools.**
 
-Field-service owners and SMB operators still take sale and fundraising numbers out of a bookkeeper file. This console proposes a pack, challenges weak claims, and refuses to export until a human locks every figure.
+Impact Quadrant implements AI agents in the workflow a $20M–$500M operator already runs — HVAC, plumbing, electrical, trucking, roofing, landscaping, auto/fleet, discrete and process plants stuck on shop software. Diagnose the board, deploy agents, govern with CHP (**propose → challenge → lock**), then measure production. Not a demo. Not a sale-readiness pack. Not a valuation console.
 
-- **ServiceSell** — field-services companies (~$1M+ EBITDA) preparing to meet institutional buyers (sale readiness / buyer-prep checklist).
-- **FinBridge** — SMB owners stepping beyond the bookkeeper: three-year proforma + valuation band for a raise or a sale.
+- **ServiceSell** — field-service / trades skin: agents in dispatch, after-hours booking, and job-cost without ripping out the ERP.
+- **FinBridge** — ops + cash skin: agents on quote, job-cost, and cash beyond the bookkeeper, with a human lock.
 
-Not two products. `#servicesell` and `#finbridge` are skins on one CHP spine: **propose → challenge → lock**.
+Not two products. `#servicesell` and `#finbridge` are go-to-market skins on one Cubiczan spine.
 
 | | |
 | --- | --- |
-| **Anna App id** | **276** |
-| **Slug** | `servicesell-finbridge` |
+| **House brand** | Cubiczan (products + CHP) |
+| **Services** | Impact Quadrant (forward-deploy) |
+| **ICP** | Mid-market blue-collar / industrial · **$20M–$500M** revenue |
 | **License** | [MIT](LICENSE) |
-| **Hackathon** | [DoraHacks #2349](https://dorahacks.io/hackathon/2349/buidl) |
+| **Listing** | Anna App **276** · slug `servicesell-finbridge` · [DoraHacks #2349](https://dorahacks.io/hackathon/2349/buidl) |
 
 **YouTube URL (Sam fills this):** `https://youtu.be/qWRtj5F-i5E`
 
@@ -69,12 +70,12 @@ No Anna cloud credentials are required for the demo. `anna-app login --host http
 | --- | --- | --- |
 | Both | Brand gate | [docs/media/01-brand-gate.png](docs/media/01-brand-gate.png) |
 | ServiceSell | Ingest | [docs/media/02-servicesell-ingest.png](docs/media/02-servicesell-ingest.png) |
-| ServiceSell | Buyer-prep workup | [docs/media/03-servicesell-workup.png](docs/media/03-servicesell-workup.png) |
+| ServiceSell | Agent workup | [docs/media/03-servicesell-workup.png](docs/media/03-servicesell-workup.png) |
 | ServiceSell | Challenge board | [docs/media/04-servicesell-challenge.png](docs/media/04-servicesell-challenge.png) |
 | ServiceSell | Human lock | [docs/media/05-servicesell-review.png](docs/media/05-servicesell-review.png) |
 | ServiceSell | Export | [docs/media/06-servicesell-export.png](docs/media/06-servicesell-export.png) |
 | FinBridge | Ingest | [docs/media/07-finbridge-ingest.png](docs/media/07-finbridge-ingest.png) |
-| FinBridge | Proforma + valuation | [docs/media/08-finbridge-proforma.png](docs/media/08-finbridge-proforma.png) |
+| FinBridge | Quote-to-cash | [docs/media/08-finbridge-proforma.png](docs/media/08-finbridge-proforma.png) |
 | FinBridge | Challenge | [docs/media/09-finbridge-challenge.png](docs/media/09-finbridge-challenge.png) |
 | ServiceSell | Mobile | [docs/media/10-mobile-servicesell.png](docs/media/10-mobile-servicesell.png) |
 | FinBridge | Mobile | [docs/media/11-mobile-finbridge.png](docs/media/11-mobile-finbridge.png) |
@@ -83,7 +84,7 @@ No Anna cloud credentials are required for the demo. `anna-app login --host http
 
 ![ServiceSell workup](docs/media/03-servicesell-workup.png)
 
-![FinBridge proforma](docs/media/08-finbridge-proforma.png)
+![FinBridge quote-to-cash](docs/media/08-finbridge-proforma.png)
 
 ![Thumbnail](docs/media/thumbnail.png)
 
@@ -91,15 +92,16 @@ No Anna cloud credentials are required for the demo. `anna-app login --host http
 
 Full paste block: [DORAHACKS.md](DORAHACKS.md).
 
-> ServiceSell × FinBridge is one Cubiczan Anna App with two brand skins — not two products. **Problem:** field-service owners (~$1M+ EBITDA) and SMB operators still sit in bookkeeper spreadsheets when they need a buyer-ready or fundraising-ready pack. **Who:** ServiceSell = field-services companies preparing to meet institutional buyers; FinBridge = SMB owners stepping beyond the bookkeeper for a proforma and valuation band. **How AI / agents work:** a deterministic workup engine (and, on Anna, the bundled Executa) proposes claims with provenance; a rule pack challenges weak numbers; a human must approve or reject every claim before lock and export. **Anna integration:** App id 276, slug `servicesell-finbridge`, schema-2 UI bundle, Python Executa, `#servicesell` / `#finbridge`, SKILL.md. **Run:** `npm i && npm run preview`. **Media:** `docs/media/demo.mp4`, `docs/media/thumbnail.png`, `docs/media/*.png`. **YouTube:** https://youtu.be/qWRtj5F-i5E **Repos:** https://github.com/Cubiczan/servicesell-finbridge · https://github.com/icohangar-ops/servicesell-finbridge
+> ServiceSell × FinBridge is one Cubiczan Anna App with two brand skins — not two products. **Problem:** mid-market blue-collar operators ($20M–$500M) still run dispatch, quoting, job-cost, after-hours, and cash on shop software with no governed agents. **Who:** ServiceSell = HVAC / trades shops that need agents in dispatch, booking, and job-cost; FinBridge = operators who need agents on quote-to-cash and cash beyond the bookkeeper. **How AI / agents work:** diagnose the workflow, propose agent workups with provenance, challenge weak coverage, and refuse production until a human locks every claim (Cubiczan CHP). Impact Quadrant deploys on the ERP you already run. **Listing:** App id 276, slug `servicesell-finbridge`, schema-2 UI bundle, Python Executa, `#servicesell` / `#finbridge`, SKILL.md. **Run:** `npm i && npm run preview`. **Media:** `docs/media/demo.mp4`, `docs/media/thumbnail.png`, `docs/media/*.png`. **YouTube:** https://youtu.be/qWRtj5F-i5E **Repos:** https://github.com/Cubiczan/servicesell-finbridge · https://github.com/icohangar-ops/servicesell-finbridge
 
 ## Brand positioning
 
-Public Facebook bios were not independently retrievable at build time. Copy is from [cubiczan.com](https://www.cubiczan.com) and the product brief.
+Public Facebook bios were not independently retrievable at build time. Copy is from [cubiczan.com](https://www.cubiczan.com) and the product brief locked by Sam Desigan (2026-09-13).
 
-**Cubiczan** — Agentic finance, fractional CFO, approval gates, evidence packs.  
-**ServiceSell** — Sale-readiness for field services.  
-**FinBridge** — Governed proforma and valuation band.  
+**Cubiczan** — House brand: products + CHP (propose → challenge → lock).  
+**Impact Quadrant** — Forward-deploy services company that implements the agents.  
+**ServiceSell** — Field-service / trades skin.  
+**FinBridge** — Ops + cash skin.  
 Demo books are **illustrative composites**, not named customers.
 
 ## Anna App layout
@@ -119,4 +121,4 @@ Docs followed: https://anna.partners/developers · https://anna.partners/llms.tx
 
 ## Disclaimer
 
-Illustrative figures only. Not a valuation opinion, offer of securities, or quality-of-earnings report.
+Illustrative figures only. Not a customer case study, valuation opinion, or offer of securities.

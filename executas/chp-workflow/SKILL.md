@@ -1,17 +1,17 @@
 ---
 name: cubiczan-chp-workflow
-description: Run Cubiczan propose-challenge-lock on a ServiceSell sale-readiness pack or a FinBridge proforma. Use when the user mentions #servicesell, #finbridge, buyer prep, valuation band, or CHP lock.
+description: Run Cubiczan propose-challenge-lock on ServiceSell shop-workflow agents or a FinBridge quote-to-cash pack. Use when the user mentions #servicesell, #finbridge, dispatch, job-cost, after-hours, quote-to-cash, or CHP lock.
 metadata: {"matrix":{"emoji":"🔒","execution_mode":"prompt","category_name":"finance","skill_key":"cubiczan-chp-workflow"}}
 ---
 
 # Cubiczan CHP workflow
 
-This skill steers the ServiceSell × FinBridge Anna App. It is one product with two skins.
+This skill steers the ServiceSell × FinBridge Anna App. It is one Cubiczan agentic-services offer with two go-to-market skins.
 
 ## When to load
 
-- User writes `#servicesell` or asks for field-service sale readiness / buyer-prep.
-- User writes `#finbridge` or asks for an SMB proforma, valuation band, or fundraising pack.
+- User writes `#servicesell` or asks for field-service / trades agents in dispatch, after-hours booking, or job-cost.
+- User writes `#finbridge` or asks for ops + cash agents on quote-to-cash, job-cost, or cash beyond the bookkeeper.
 - User asks to propose, challenge, lock, or export numbers.
 
 ## Rules
@@ -22,6 +22,7 @@ This skill steers the ServiceSell × FinBridge Anna App. It is one product with 
 4. Do not treat a figure as final while any claim is still `proposed` or `challenged`.
 5. Open the `main` app view when the user wants the structured console rather than chat prose.
 6. Brand skin changes copy and theme only. Tools stay the same.
+7. The offer is mid-market ($20M–$500M) agentic services in the existing shop workflow — not sale-readiness, not a valuation band, not a $1M-EBITDA lifestyle shop.
 
 ## Output
 

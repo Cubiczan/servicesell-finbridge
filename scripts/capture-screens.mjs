@@ -44,7 +44,7 @@ await page.waitForSelector('[data-testid="generate-workup"]');
 await shot(page, "02-servicesell-ingest.png");
 
 await clickTestId(page, "generate-workup");
-await page.waitForFunction(() => document.body.innerText.includes("Proposed pack") || document.body.innerText.includes("Buyer-prep"));
+await page.waitForFunction(() => document.body.innerText.includes("Proposed pack") || document.body.innerText.includes("Agent deployment"));
 await sleep(400);
 await shot(page, "03-servicesell-workup.png", { y: 0 });
 
@@ -60,7 +60,7 @@ await shot(page, "05-servicesell-review.png");
 await clickTestId(page, "approve-all");
 await sleep(200);
 await clickTestId(page, "lock-consensus");
-await page.waitForFunction(() => document.body.innerText.includes("Locked / approved") || document.body.innerText.includes("Buyer-prep summary"));
+await page.waitForFunction(() => document.body.innerText.includes("Locked / approved") || document.body.innerText.includes("Agent deployment summary"));
 await sleep(400);
 await shot(page, "06-servicesell-export.png", { y: 0 });
 
@@ -70,7 +70,7 @@ await sleep(300);
 await shot(page, "07-finbridge-ingest.png");
 
 await clickTestId(page, "generate-workup");
-await page.waitForFunction(() => document.body.innerText.includes("Three-year proforma") || document.body.innerText.includes("Proposed pack"));
+await page.waitForFunction(() => document.body.innerText.includes("Forward operating picture") || document.body.innerText.includes("Proposed pack"));
 await sleep(400);
 await shot(page, "08-finbridge-proforma.png");
 
@@ -79,11 +79,13 @@ await sleep(300);
 await shot(page, "09-finbridge-challenge.png");
 
 await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 });
-await page.goto(`${URL}#servicesell`, { waitUntil: "networkidle0" });
+await clickTestId(page, "switch-servicesell");
 await page.waitForSelector('[data-testid="generate-workup"]');
+await sleep(300);
 await shot(page, "10-mobile-servicesell.png", { y: 420 });
-await page.goto(`${URL}#finbridge`, { waitUntil: "networkidle0" });
+await clickTestId(page, "switch-finbridge");
 await page.waitForSelector('[data-testid="generate-workup"]');
+await sleep(300);
 await shot(page, "11-mobile-finbridge.png", { y: 420 });
 
 await browser.close();

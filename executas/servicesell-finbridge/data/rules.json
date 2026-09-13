@@ -21,64 +21,87 @@
     "safety": 10,
     "addBacks": 10
   },
+  "nightMix": 0.18,
   "challenges": [
     {
-      "id": "concentration",
-      "claim": "top_customer_pct",
+      "id": "after-hours-gap",
+      "claim": "data_room_ready",
       "severity": "high",
-      "when": { "field": "topCustomerPct", "op": ">", "value": 0.15 },
-      "text": "Top-account concentration is above 15%. Institutional buyers typically haircut revenue or demand an earnout."
+      "when": { "field": "dataRoomReadyPct", "op": "<", "value": 0.6 },
+      "text": "After-hours booking coverage is under 60%. Night calls still die on voicemail or the owner's cell — an agent belongs on that board."
     },
     {
-      "id": "owner-key-person",
+      "id": "owner-dispatch",
       "claim": "owner_field_hours",
       "severity": "high",
-      "when": { "field": "ownerFieldHoursWeekly", "op": ">=", "value": 15 },
-      "text": "Owner still carries a field book. Buyers will price a transition plan, not a lifestyle business."
+      "when": { "field": "ownerFieldHoursWeekly", "op": ">=", "value": 12 },
+      "text": "An owner or GM still sits in dispatch or quoting. Agents should take the night board and the first-pass quote; a human locks exceptions."
     },
     {
-      "id": "addback-load",
+      "id": "job-cost-variance",
+      "claim": "job_cost_variance",
+      "severity": "high",
+      "when": { "field": "jobCostVariancePct", "op": ">", "value": 0.08 },
+      "text": "Job-cost variance is above 8%. Production agents cannot close the loop until closed-job cost matches the quote."
+    },
+    {
+      "id": "job-cost-leaks",
       "claim": "add_backs_total",
       "severity": "medium",
-      "when": { "field": "addBackShareOfEbitda", "op": ">", "value": 0.15 },
-      "text": "Add-backs exceed 15% of reported EBITDA. Quality-of-earnings will test every line."
+      "when": { "field": "addBackShareOfEbitda", "op": ">", "value": 0.04 },
+      "text": "Unposted overtime, warranty, detention, or rework is leaking past job-cost. That is a shop-workflow gap, not a quality-of-earnings exercise."
     },
     {
-      "id": "thin-recurring",
+      "id": "thin-contracts",
       "claim": "recurring_pct",
       "severity": "medium",
       "when": { "field": "recurringPct", "op": "<", "value": 0.25 },
       "brands": ["servicesell"],
-      "text": "Recurring maintenance is under 25% of revenue. Field-service multiples compress without contract coverage."
+      "text": "Maintenance / contract mix is under 25%. Dispatch and after-hours agents need a contract spine or they will only chase emergency noise."
     },
     {
-      "id": "project-mix",
-      "claim": "recurring_pct",
-      "severity": "medium",
-      "when": { "field": "recurringPct", "op": "<", "value": 0.2 },
+      "id": "quote-to-cash",
+      "claim": "quote_cycle_days",
+      "severity": "high",
+      "when": { "field": "quoteCycleDays", "op": ">", "value": 10 },
       "brands": ["finbridge"],
-      "text": "Little contracted revenue. A fundraising model that assumes smooth growth needs a backlog or repeat-order story."
+      "text": "Quote-to-cash is longer than ten days. An agent can draft the quote and chase the invoice; a human still locks price and cash moves."
     },
     {
-      "id": "aggressive-growth",
+      "id": "slow-quote",
+      "claim": "quote_cycle_days",
+      "severity": "medium",
+      "when": { "field": "quoteCycleDays", "op": ">", "value": 7 },
+      "brands": ["servicesell"],
+      "text": "Quote cycle is longer than a week. A quoting agent on the existing shop system should cut first-pass time; a human locks the number."
+    },
+    {
+      "id": "aggressive-capture",
       "claim": "growth_rate",
       "severity": "medium",
       "when": { "field": "growthRate", "op": ">", "value": 0.1 },
-      "text": "Growth above 10% is an assumption, not a fact. Lock it only if backlog or signed pipeline supports the slope."
+      "text": "After-hours capture above 10% is an assumption, not a measured production result. Lock it only after the agent has run on the live board."
     },
     {
-      "id": "wc-heavy",
+      "id": "cash-trapped",
       "claim": "wc_pct",
       "severity": "medium",
-      "when": { "field": "wcPct", "op": ">", "value": 0.12 },
-      "text": "Working capital is heavy versus revenue. A buyer peg or a raise will trap cash at close."
+      "when": { "field": "wcPct", "op": ">", "value": 0.08 },
+      "text": "Working capital is heavy versus revenue. Cash is sitting in jobs and AR beyond what the bookkeeper can see — a quote-to-cash agent with a human lock."
     },
     {
-      "id": "wc-thin",
+      "id": "cash-thin",
       "claim": "wc_pct",
       "severity": "low",
-      "when": { "field": "wcPct", "op": "<", "value": 0.05 },
-      "text": "Working capital looks thin. Confirm it is not understated seasonal float."
+      "when": { "field": "wcPct", "op": "<", "value": 0.04 },
+      "text": "Working capital looks thin. Confirm it is not understated seasonal float before an agent starts moving cash."
+    },
+    {
+      "id": "concentration",
+      "claim": "top_customer_pct",
+      "severity": "medium",
+      "when": { "field": "topCustomerPct", "op": ">", "value": 0.15 },
+      "text": "One account is above 15% of revenue. Dispatch and cash agents should flag that board so a missed night or a slow invoice is not a surprise."
     },
     {
       "id": "safety",
@@ -86,36 +109,29 @@
       "severity": "medium",
       "when": { "field": "safetyIncidents12m", "op": ">=", "value": 2 },
       "brands": ["servicesell"],
-      "text": "Two or more recordable incidents in twelve months. Safety files belong in the data room before a process starts."
-    },
-    {
-      "id": "data-room",
-      "claim": "data_room_ready",
-      "severity": "high",
-      "when": { "field": "dataRoomReadyPct", "op": "<", "value": 0.6 },
-      "text": "Data-room readiness is below 60%. Do not take meetings until the evidence pack is assembled."
+      "text": "Two or more recordable incidents in twelve months. Field safety stays a shop constraint on how far after-hours and dispatch agents can run unattended."
     }
   ],
   "checklist": {
     "servicesell": [
-      { "id": "qoe", "title": "Quality of earnings package", "claim": "adj_ebitda" },
-      { "id": "cohort", "title": "Customer cohort & concentration", "claim": "top_customer_pct" },
-      { "id": "contracts", "title": "Maintenance contracts / recurring book", "claim": "recurring_pct" },
-      { "id": "owner", "title": "Owner role & key-person plan", "claim": "owner_field_hours" },
-      { "id": "fleet", "title": "Fleet, dispatch, and field systems", "claim": "fleet_count" },
-      { "id": "license", "title": "Licensing, bonding, safety", "claim": "safety_incidents" },
-      { "id": "wc", "title": "Working-capital peg", "claim": "wc_pct" },
-      { "id": "dataroom", "title": "Data-room completeness", "claim": "data_room_ready" }
+      { "id": "after-hours", "title": "After-hours booking agent", "claim": "data_room_ready" },
+      { "id": "dispatch", "title": "Dispatch / board coverage", "claim": "owner_field_hours" },
+      { "id": "job-cost", "title": "Job-cost on closed jobs", "claim": "job_cost_variance" },
+      { "id": "contracts", "title": "Maintenance / contract book", "claim": "recurring_pct" },
+      { "id": "fleet", "title": "Fleet + technician load", "claim": "fleet_count" },
+      { "id": "license", "title": "Field safety constraint", "claim": "safety_incidents" },
+      { "id": "cash", "title": "Cash after jobs", "claim": "wc_pct" },
+      { "id": "quote", "title": "First-pass quote cycle", "claim": "quote_cycle_days" }
     ],
     "finbridge": [
-      { "id": "qoe", "title": "Normalized earnings bridge", "claim": "adj_ebitda" },
-      { "id": "proforma", "title": "Three-year proforma", "claim": "y3_ebitda" },
-      { "id": "valuation", "title": "Valuation band (not a price)", "claim": "ev_mid" },
-      { "id": "concentration", "title": "Customer / SKU concentration", "claim": "top_customer_pct" },
-      { "id": "proceeds", "title": "Use of proceeds & dilution math", "claim": "growth_ask" },
-      { "id": "wc", "title": "Working-capital need", "claim": "wc_pct" },
-      { "id": "owner", "title": "Owner dependence after a raise or sale", "claim": "owner_field_hours" },
-      { "id": "dataroom", "title": "Investor evidence pack", "claim": "data_room_ready" }
+      { "id": "quote-cash", "title": "Quote-to-cash agent", "claim": "quote_cycle_days" },
+      { "id": "job-cost", "title": "Job-cost vs the bookkeeper", "claim": "job_cost_variance" },
+      { "id": "cash", "title": "Cash beyond the bookkeeper", "claim": "wc_pct" },
+      { "id": "ar", "title": "Uncollected AR / WIP", "claim": "growth_ask" },
+      { "id": "concentration", "title": "Account concentration on cash", "claim": "top_customer_pct" },
+      { "id": "owner", "title": "Owner still quoting", "claim": "owner_field_hours" },
+      { "id": "forward", "title": "Forward operating picture", "claim": "y3_ebitda" },
+      { "id": "after-hours", "title": "After-hours / ops coverage", "claim": "data_room_ready" }
     ]
   }
 }
