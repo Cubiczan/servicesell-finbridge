@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ServiceSell × FinBridge</title>
-    <script>
-      window.__ANNA_TOOL_IDS__ = window.__ANNA_TOOL_IDS__ || { "cubiczan-chp": "tool-dev-servicesell-finbridge" };
-    </script>
+    <!-- Classic script (not module) so window.__ANNA_TOOL_IDS__ is set before the SPA.
+         Publish overwrites public/anna-tool-ids.js / bundle/anna-tool-ids.js with minted ids.
+         No inline script: Anna iframe CSP is script-src 'self'. -->
     <script src="./anna-tool-ids.js"></script>
   </head>
   <body>

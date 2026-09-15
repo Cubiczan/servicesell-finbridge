@@ -1,10 +1,47 @@
 {
   "slug": "cubiczan-chp",
   "name": "Cubiczan CHP Workup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "executa_type": "tool",
+  "description": "Shared ServiceSell + FinBridge tools: ingest, workup, CHP lock, export. Deterministic JSON-RPC; no network.",
   "tool_id": "tool-dev-servicesell-finbridge",
   "type": "python",
   "enabled": true,
-  "_comment": "Local/dev tool_id. Publish mints a platform id; UI reads window.__ANNA_TOOL_IDS__ when present."
+  "distribution": {
+    "active": "binary",
+    "profiles": {
+      "local": {
+        "type": "local",
+        "supports_protocol": true
+      },
+      "binary": {
+        "type": "binary",
+        "executable_name": "cubiczan-chp",
+        "supports_protocol": true,
+        "binary_artifacts": {
+          "darwin-arm64": {
+            "path": "dist/cubiczan-chp-{version}-darwin-arm64.tar.gz",
+            "entrypoint": "cubiczan-chp",
+            "format": "tar.gz"
+          },
+          "darwin-x86_64": {
+            "path": "dist/cubiczan-chp-{version}-darwin-x86_64.tar.gz",
+            "entrypoint": "cubiczan-chp",
+            "format": "tar.gz"
+          },
+          "linux-x86_64": {
+            "path": "dist/cubiczan-chp-{version}-linux-x86_64.tar.gz",
+            "entrypoint": "cubiczan-chp",
+            "format": "tar.gz"
+          },
+          "windows-x86_64": {
+            "path": "dist/cubiczan-chp-{version}-windows-x86_64.zip",
+            "entrypoint": "cubiczan-chp.exe",
+            "format": "zip"
+          }
+        }
+      }
+    }
+  },
+  "_comment": "tool_id is the local/dev placeholder used by anna-app dev (uvx / stdio). Publish mints a platform tool_id and substitutes bundled:cubiczan-chp. Do not commit minted ids such as tool-cubiczan-cubiczan-chp-yexs252k. linux-x86_64 is required for Anna Cloud Agent. Download GHA Release archives into this executa's dist/ before anna-app apps publish. Flip distribution.active to local only for laptop-only pushes that skip binaries."
 }

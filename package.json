@@ -1,7 +1,7 @@
 {
   "name": "servicesell-finbridge",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "license": "MIT",
   "description": "Cubiczan agentic services for $20M–$500M blue-collar shops: ServiceSell + FinBridge on one CHP spine.",
@@ -15,8 +15,10 @@
     "validate:strict": "anna-app validate --strict",
     "anna:dev": "anna-app dev --port 43180",
     "anna:doctor": "anna-app doctor",
+    "executa:package": "python3 scripts/package_executa.py",
     "media:screens": "node scripts/capture-screens.mjs",
-    "media:demo": "bash scripts/make-media.sh"
+    "media:demo": "bash scripts/make-media.sh",
+    "listing:assets": "bash scripts/make-listing-assets.sh"
   },
   "dependencies": {
     "react": "^19.1.1",

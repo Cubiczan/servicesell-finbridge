@@ -1,9 +1,17 @@
 import { runTool } from "./engine";
 
+/** Bundled handle from app.json#bundled_executas. Publish maps this to a minted tool_id. */
+export const EXECUTA_HANDLE = "cubiczan-chp";
+
+/** Local/dev placeholder from executa.json. Never a minted platform id. */
+export const DEV_FALLBACK_TOOL_ID = "tool-dev-servicesell-finbridge";
+
 export const TOOL_ID =
   (typeof window !== "undefined" &&
-    (window as unknown as { __ANNA_TOOL_IDS__?: Record<string, string> }).__ANNA_TOOL_IDS__?.["cubiczan-chp"]) ||
-  "tool-dev-servicesell-finbridge";
+    (window as unknown as { __ANNA_TOOL_IDS__?: Record<string, string> }).__ANNA_TOOL_IDS__?.[
+      EXECUTA_HANDLE
+    ]) ||
+  DEV_FALLBACK_TOOL_ID;
 
 export type HostKind = "anna" | "standalone";
 

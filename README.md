@@ -54,6 +54,19 @@ npx anna-app dev --port 43180   # official Anna harness (needs uv; no PAT for th
 
 No Anna cloud credentials are required for the demo. `anna-app login --host https://anna.partners` is only for live host LLM / APS.
 
+## Anna packaging (review / Cloud Agent)
+
+Do **not** hardcode minted platform tool ids (for example `tool-cubiczan-cubiczan-chp-yexs252k`). The app uses the bundled handle `cubiczan-chp`.
+
+| File | Role |
+| --- | --- |
+| `app.json` `bundled_executas.cubiczan-chp` | Local Executa path |
+| `manifest.json` `bundled:cubiczan-chp` / `required:bundled:cubiczan-chp` | Publish resolves handle → platform `tool_id` |
+| `executas/servicesell-finbridge/executa.json` | Local `tool_id` for `anna-app dev` + `distribution.profiles.binary` (`linux-x86_64` required) |
+| `bundle/anna-tool-ids.js` | Written by publish; UI reads `window.__ANNA_TOOL_IDS__["cubiczan-chp"]` |
+
+Listing logo + screenshots for the Developer Console: [`docs/listing/`](docs/listing/). Full resubmit steps: [`docs/ANNA-RESUBMIT.md`](docs/ANNA-RESUBMIT.md).
+
 ## Judge media
 
 | Asset | Path |
@@ -108,13 +121,15 @@ Demo books are **illustrative composites**, not named customers.
 
 ```
 app.json                 listing + bundled Executas (id 276 / slug)
-manifest.json            schema 2 UI + host_api ACL
+manifest.json            schema 2 UI + bundled:<handle> refs
 bundle/                  static SPA Anna mounts in the iframe
 src/                     React + TypeScript UI (Vite → bundle/)
-executas/servicesell-finbridge/   Python CHP tool
-executas/chp-workflow/SKILL.md    declarative recipe
-docs/media/              demo.mp4, thumbnail, screenshots
-artifacts/               copies for judges
+executas/servicesell-finbridge/   Python CHP tool + binary_artifacts
+executas/chp-workflow/            declarative skill (SKILL.md + executa.json)
+.github/workflows/       multi-platform Executa binaries (linux-x86_64 required)
+docs/listing/            logo + ≤6 screenshots for the Anna Listing tab
+docs/media/              demo.mp4, thumbnail, screenshot gallery
+artifacts/               copies for judges / Console upload
 ```
 
 Docs followed: https://anna.partners/developers · https://anna.partners/llms.txt

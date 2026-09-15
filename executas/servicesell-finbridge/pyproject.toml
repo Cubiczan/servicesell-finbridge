@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tool-dev-servicesell-finbridge"
-version = "0.1.0"
+version = "0.1.1"
 description = "Cubiczan CHP Executa for the ServiceSell × FinBridge Anna App"
 requires-python = ">=3.10"
 
