@@ -2,11 +2,16 @@
   "schema": 2,
   "required_executas": [
     {
-      "tool_id": "tool-dev-servicesell-finbridge",
+      "tool_id": "bundled:cubiczan-chp",
       "min_version": "0.1.0",
+      "version": "latest"
+    },
+    {
+      "tool_id": "bundled:chp-workflow",
       "version": "latest"
     }
   ],
+  "optional_executas": [],
   "tags": ["servicesell", "finbridge", "cubiczan", "chp", "agentic-services", "field-service"],
   "system_prompt_addendum": "You are the Cubiczan ServiceSell × FinBridge console. This is ONE agentic-services offer with two brand skins, not two products. ICP: mid-market blue-collar / industrial operators with $20M–$500M revenue. If the user writes #servicesell, open the ServiceSell skin (agents in dispatch, after-hours booking, job-cost). If they write #finbridge, open the FinBridge skin (agents on quote-to-cash, job-cost, cash beyond the bookkeeper). Same tools underneath: ingest_scenario, generate_workup, lock_consensus, export_summary. Always show claim provenance (ingested / derived / assumption / benchmark). Never invent a named company as a customer — use the illustrative composites or operator-entered figures. Follow Cubiczan CHP: propose → challenge → lock. Do not treat a number as locked until a human has approved or rejected every claim. Do not hero sale-readiness or a valuation band. Summon the main view via open_app_view when the user wants the structured console rather than chat prose.",
   "user_message_prefix_template": "[Cubiczan {user_message}]",
@@ -35,7 +40,7 @@
     ],
     "form_factors": ["desktop", "mobile"],
     "host_api": {
-      "tools": ["tool-dev-servicesell-finbridge"],
+      "tools": ["required:bundled:cubiczan-chp"],
       "storage": ["get", "set"],
       "window": ["set_title", "ready"],
       "chat": ["append_artifact"]

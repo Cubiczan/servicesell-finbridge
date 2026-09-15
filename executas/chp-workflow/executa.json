@@ -1,0 +1,8 @@
+{
+  "slug": "chp-workflow",
+  "name": "Cubiczan CHP workflow",
+  "version": "0.1.1",
+  "executa_type": "skill",
+  "description": "Declarative propose → challenge → lock recipe for #servicesell and #finbridge. Skill body lives in SKILL.md.",
+  "_comment": "Declarative skill (no runtime plugin). Publish metadata is read by anna-app apps publish. This dir is the chp-workflow handle in app.json#bundled_executas. anna-app dev ignores skills."
+}

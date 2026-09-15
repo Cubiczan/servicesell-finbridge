@@ -1,5 +1,6 @@
 node_modules/
 dist/
+build/
 .anna/
 .anna-app/
 .python-version
@@ -13,3 +14,6 @@ __pycache__/
 coverage/
 agent-tools/
 docs/media/_work/
+executas/**/dist/
+executas/**/build/
+executas/**/*.spec

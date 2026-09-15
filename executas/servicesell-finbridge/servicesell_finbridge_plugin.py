@@ -16,7 +16,7 @@ from engine import (
 MANIFEST = {
     "name": "tool-dev-servicesell-finbridge",
     "display_name": "Cubiczan CHP Workup",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Shared ServiceSell + FinBridge tools: ingest, workup, CHP lock, export.",
     "tools": [
         {

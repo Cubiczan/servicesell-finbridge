@@ -6,11 +6,21 @@ Reads the same JSON rules/scenarios as the UI. No network. No secrets.
 from __future__ import annotations
 
 import json
+import sys
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-DATA_DIR = Path(__file__).resolve().parent / "data"
+
+def _data_dir() -> Path:
+    """Resolve JSON data next to source, or inside a PyInstaller bundle."""
+    meipass = getattr(sys, "_MEIPASS", None)
+    if getattr(sys, "frozen", False) and meipass:
+        return Path(meipass) / "data"
+    return Path(__file__).resolve().parent / "data"
+
+
+DATA_DIR = _data_dir()
 
 
 def load_json(name: str) -> dict[str, Any]:
