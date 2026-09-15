@@ -1,15 +1,18 @@
 {
   "slug": "servicesell-finbridge",
   "anna_app_id": 276,
-  "name": "ServiceSell × FinBridge",
+  "name": "ServiceSell \u00d7 FinBridge",
   "version": "0.1.1",
   "tagline": "Cubiczan agentic services. Two skins. Propose, challenge, lock.",
-  "description": "Cubiczan agentic-services console for mid-market blue-collar operators ($20M–$500M). ServiceSell deploys agents in dispatch, after-hours booking, and job-cost. FinBridge deploys agents on quote-to-cash, job-cost, and cash beyond the bookkeeper. Same tools, same CHP human-lock spine, different theme and copy. Mention #servicesell or #finbridge.",
-  "category": "finance",
+  "description": "Cubiczan agentic-services console for mid-market blue-collar operators ($20M\u2013$500M). ServiceSell deploys agents in dispatch, after-hours booking, and job-cost. FinBridge deploys agents on quote-to-cash, job-cost, and cash beyond the bookkeeper. Same tools, same CHP human-lock spine, different theme and copy. Mention #servicesell or #finbridge.",
+  "category": "productivity",
   "pricing_model": "free",
   "homepage_url": "https://www.cubiczan.com",
   "support_url": "https://github.com/Cubiczan/servicesell-finbridge/issues",
-  "aliases": ["servicesell", "finbridge"],
+  "aliases": [
+    "servicesell",
+    "finbridge"
+  ],
   "_comment_listing": "Listing logo/screenshots are also stored on the AnnaApp row via the Developer Console Listing tab (not the version manifest). Source files live in docs/listing/. See docs/ANNA-RESUBMIT.md.",
   "logo_url": "https://raw.githubusercontent.com/Cubiczan/servicesell-finbridge/main/docs/listing/logo.png",
   "cover_url": "https://raw.githubusercontent.com/Cubiczan/servicesell-finbridge/main/docs/listing/cover.png",
@@ -21,9 +24,13 @@
     "https://raw.githubusercontent.com/Cubiczan/servicesell-finbridge/main/docs/listing/05-human-lock.png",
     "https://raw.githubusercontent.com/Cubiczan/servicesell-finbridge/main/docs/listing/06-mobile-servicesell.png"
   ],
-  "_comment_bundled_executas": "anna-app apps publish publishes each bundled Executa first, then substitutes server-minted tool_ids into every bundled:<handle> reference in manifest.json (in memory — the file on disk is never mutated) and writes bundle/anna-tool-ids.js. Do not hardcode platform tool_ids such as tool-cubiczan-cubiczan-chp-yexs252k.",
+  "_comment_bundled_executas": "anna-app apps publish publishes each bundled Executa first, then substitutes server-minted tool_ids into every bundled:<handle> reference in manifest.json (in memory \u2014 the file on disk is never mutated) and writes bundle/anna-tool-ids.js. Do not hardcode platform tool_ids such as tool-cubiczan-cubiczan-chp-yexs252k.",
   "bundled_executas": {
-    "cubiczan-chp": { "path": "./executas/servicesell-finbridge" },
-    "chp-workflow": { "path": "./executas/chp-workflow" }
+    "cubiczan-chp": {
+      "path": "./executas/servicesell-finbridge"
+    },
+    "chp-workflow": {
+      "path": "./executas/chp-workflow"
+    }
   }
 }
